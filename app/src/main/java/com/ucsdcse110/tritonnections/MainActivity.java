@@ -3,8 +3,10 @@ package com.ucsdcse110.tritonnections;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.xml.sax.XMLReader;
@@ -107,13 +109,28 @@ public class MainActivity extends AppCompatActivity {
         });
         webView.getSettings().setJavaScriptEnabled(true);
         //webView.loadUrl("http://www.google.com/");
+
+        /*
         setContentView(webView);
         try {
             new RetrieveFeedTask(webView).execute("cse");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        */
 
+    }
+
+    public void sendMessage(View view) {
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+
+        String message = editText.getText().toString();
+        setContentView(webView);
+        try {
+            new RetrieveFeedTask(webView).execute(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Tritonnections</string>
+    <string name="edit_search">Enter the course code</string>
+    <string name="button_send">Search</string>
+
 </resources>

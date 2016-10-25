@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
     }
 
-    public void sendMessage(View view) {
+    public void searchScheduleOfClasses(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
 
         String message = editText.getText().toString();
         setContentView(webView);
         try {
+            // TODO: replace with LoadScheduleCardsTask after finishing implementation
             new LoadScheduleWebviewTask(webView).execute(message);
         } catch (Exception e) {
             e.printStackTrace();

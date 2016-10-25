@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         setContentView(webView);
         try {
-            new LoadPageTask(webView).execute(message);
+            new LoadScheduleWebviewTask(webView).execute(message);
         } catch (Exception e) {
             e.printStackTrace();
         }

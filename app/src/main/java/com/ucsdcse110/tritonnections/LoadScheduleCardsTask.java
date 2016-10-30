@@ -24,6 +24,9 @@ public class LoadScheduleCardsTask extends PostRequestTask<List<CourseObj>> {
             Notes on this pattern. Group 1 is the section ID. Group 2 is the meeting type. Group 3 is the Section. Group 4 is the days of meeting. Group 5 is the start time. Group 6 is the end time. Groups 7 and 8 together are the location. Group 9 is the instructor's email. Group 10 is the instructor's name. Group 11 is the available seats, group 12 is the seat limit.
          */
 
+        ArrayList<CourseObj> courseList = new ArrayList<CourseObj>();
+
+
         String[] courses = html.split("<tr\\s*>\\s*<td class=\"crsheader\">");
 
         for (int i = 1; i < courses.length; i++){
@@ -33,11 +36,10 @@ public class LoadScheduleCardsTask extends PostRequestTask<List<CourseObj>> {
             String courseName = courseInfo[1].split("class=\"boldtxt\">")[1].split("</")[0];
 
             Matcher matcher = pattern.matcher(courses[i]);
-            ArrayList<CourseObj> objList = new ArrayList<CourseObj>();
 
             while (matcher.find()) {
                 String sectionID = matcher.group(1);
-                String type = matcher.group(2); //Convert to MeetingType
+                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(matcher.group(2)); //Convert to MeetingType
                 String section = matcher.group(3);
                 String days = matcher.group(4); //Convert to DaysOfWeek
                 String startTime = matcher.group(5); //Convert to int
@@ -48,6 +50,8 @@ public class LoadScheduleCardsTask extends PostRequestTask<List<CourseObj>> {
                     instructor = "";
                 int seatsAvailable = Integer.parseInt(matcher.group(11));
                 int seatsLimit = Integer.parseInt(matcher.group(12));
+
+                //courseList.add(new CourseObj(sectionID,type,section,days,startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
 
 
 

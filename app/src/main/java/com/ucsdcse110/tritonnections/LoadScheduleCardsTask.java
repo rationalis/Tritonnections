@@ -33,7 +33,7 @@ public class LoadScheduleCardsTask extends PostRequestTask<List<CourseObj>> {
             String courseName = courseInfo[1].split("class=\"boldtxt\">")[1].split("</")[0];
 
             Matcher matcher = pattern.matcher(courses[i]);
-            ArrayList<CourseComponentObj> objList = new ArrayList<CourseComponentObj>();
+            ArrayList<CourseObj> objList = new ArrayList<CourseObj>();
 
             while (matcher.find()) {
                 String sectionID = matcher.group(1);

@@ -14,7 +14,7 @@ public class CourseObj {
 
 class CourseComponentObj {
     public enum MeetingType {
-        LE, DI, LA, RE, FI
+        LE, DI, LA, RE, FI, SE, TU
     }
 
     public enum DayOfWeek {

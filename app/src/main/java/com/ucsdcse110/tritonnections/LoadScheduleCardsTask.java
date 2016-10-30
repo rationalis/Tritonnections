@@ -1,5 +1,7 @@
 package com.ucsdcse110.tritonnections;
 
+import android.content.Intent;
+
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -47,9 +49,5 @@ public class LoadScheduleCardsTask extends PostRequestTask<List<CourseObj>> {
 
 
         return null;
-    }
-
-    protected void onPostExecute(List<CourseObj> data) {
-        // TODO: convert CourseObj's into cards and display the cards
     }
 }

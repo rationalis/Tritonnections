@@ -10,6 +10,7 @@ public class CourseObj {
         this.components = components;
         this.sectionID = sectionID;
     }
+
 }
 
 class CourseComponentObj {

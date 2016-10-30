@@ -1,27 +1,15 @@
 package com.ucsdcse110.tritonnections;
 
-import java.util.List;
-
-public class CourseObj {
-    public final List<CourseComponentObj> components;
-    public final String sectionID;
-
-    public CourseObj(List<CourseComponentObj> components, String sectionID) {
-        this.components = components;
-        this.sectionID = sectionID;
-    }
-
-}
-
-class CourseComponentObj {
+class CourseObj {
     public enum MeetingType {
-        LE, DI, LA, RE, FI
+        LE, DI, LA, RE, FI, SE, TU
     }
 
     public enum DayOfWeek {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 
+    public final String sixDigitSectionID;
     public final MeetingType type;
     public final String sectionID;
     public final DayOfWeek dayOfWeek;
@@ -32,7 +20,8 @@ class CourseComponentObj {
     public final int seatsAvailable;
     public final int seatsLimit;
 
-    public CourseComponentObj(MeetingType type, String sectionID, DayOfWeek dayOfWeek, int startTime, int endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
+    public CourseObj(String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek dayOfWeek, int startTime, int endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
+        this.sixDigitSectionID = sixDigitSectionID;
         this.type = type;
         this.sectionID = sectionID;
         this.dayOfWeek = dayOfWeek;

@@ -10,53 +10,56 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
-    private Exception exception;
+    protected Exception exception;
+    protected String lastResponse;
+    protected String lastUrl;
 
-    private String readStream(InputStream is) {
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            int i = is.read();
-            while(i != -1) {
-                bo.write(i);
-                i = is.read();
-            }
-            return bo.toString();
-        } catch (IOException e) {
-            return "";
+    private String readStream(InputStream is) throws IOException {
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        int i = is.read();
+        while(i != -1) {
+            bo.write(i);
+            i = is.read();
         }
+        return bo.toString();
     }
 
     protected String request(String url, String urlParameters, String method) {
         try {
             if (method == null) method = "GET";
+            String nextUrl = url;
+            HttpURLConnection con;
+            int respCode = 300;
 
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            for (int ii = 0; ii < 10 &&
+                    (respCode >= 300 && respCode < 400 || ii == 0) && nextUrl != null; ii++) {
+                con = (HttpURLConnection) new URL(nextUrl).openConnection();
+                con.setInstanceFollowRedirects(false);
+                con.setUseCaches(false);
+                con.setRequestMethod(method);
 
-            con.setRequestMethod(method);
-            if (urlParameters != null) {
-                con.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                wr.writeBytes(urlParameters);
-                wr.flush();
-                wr.close();
+                if (urlParameters != null) {
+                    con.setDoOutput(true);
+                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+                    wr.writeBytes(urlParameters);
+                    wr.flush();
+                    wr.close();
+                }
+
+                con.connect();
+
+                respCode = con.getResponseCode();
+                System.out.println("\nSending '"+method+"' request to URL : " + nextUrl);
+                System.out.println("Response Code : " + respCode);
+                lastResponse = readStream(con.getInputStream());
+
+                nextUrl = con.getHeaderField("Location");
+                if (nextUrl != null) lastUrl = nextUrl;
+                method = "GET";
+                urlParameters = null;
             }
 
-            int responseCode = con.getResponseCode();
-            System.out.println("\nSending '"+method+"' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
-
-            String response = readStream(con.getInputStream());
-
-            while (responseCode >= 300 && responseCode < 400) {
-                String redirectedUrl = con.getHeaderField("Location");
-                if (redirectedUrl == null)
-                    break;
-                System.out.println("redirected url: " + redirectedUrl);
-            }
-
-            //System.out.println(response);
-            return response;
+            return lastResponse;
         } catch (Exception e) {
             this.exception = e;
             e.printStackTrace();

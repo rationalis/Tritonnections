@@ -37,14 +37,13 @@ public class MainActivity extends AppCompatActivity {
     public void searchScheduleOfClasses(View view) {
         EditText editText = (EditText) findViewById(R.id.edit_message);
 
-        String message = editText.getText().toString();
-        //setContentView(webView);
+        String query = editText.getText().toString();
+        setContentView(webView);
         try {
-            // TODO: replace with LoadScheduleCardsTask after finishing implementation
-            //new LoadScheduleWebviewTask(webView).execute(message);
-            // TODO: convert CourseObj's into cards and display the cards
-            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
-            startActivity(intent);
+            new LoadScheduleWebviewTask(webView).execute(query);
+//            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+//            intent.putExtra("query", query);
+//            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }

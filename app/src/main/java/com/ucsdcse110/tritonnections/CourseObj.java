@@ -6,7 +6,7 @@ class CourseObj {
     }
 
     public enum DayOfWeek {
-        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+        M, T, W, Th, F, S, Su
     }
 
     public final String sixDigitSectionID;

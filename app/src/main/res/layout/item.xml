@@ -31,29 +31,34 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/clocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_below="@+id/cname" />
+                android:layout_marginTop="5dp"
+                android:textSize="30sp"
+                android:text="CourseName"/>
 
             <TextView
                 android:id="@+id/cinstructor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_below="@+id/clocation" />
+                android:layout_toRightOf="@+id/cname"
+                android:layout_marginTop="20dp"
+                android:text="CourseInstrctor"/>
+
+            <TextView
+                android:id="@+id/clocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_below="@+id/cname"
+                android:text="CourseLocation"/>
 
             <TextView
                 android:id="@+id/ctime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:layout_below="@+id/cinstructor" />
+                android:layout_below="@+id/clocation"
+                android:text="CourseTime"/>
 
         </RelativeLayout>
 

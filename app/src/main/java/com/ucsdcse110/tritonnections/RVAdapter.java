@@ -53,7 +53,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         courseViewHolder.courseName.setText(courseList.get(i).sectionID);
         courseViewHolder.courseLocation.setText(courseList.get(i).location);
         courseViewHolder.courseInstructor.setText(courseList.get(i).instructor);
-        courseViewHolder.courseTime.setText("1PM - 2PM");
+        courseViewHolder.courseTime.setText(courseList.get(i).startTime + "-" + courseList.get(i).endTime);
     }
 
     @Override

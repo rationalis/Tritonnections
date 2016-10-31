@@ -36,9 +36,8 @@ public class RecyclerViewActivity extends Activity {
 
     private void initializeData(){
         courseList = new ArrayList<>();
-        courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", CourseObj.DayOfWeek.TUESDAY, 1, 10, "erc", "abc", 10, 100));
-        courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", CourseObj.DayOfWeek.TUESDAY, 1, 10, "erc", "abc", 10, 100));
-        courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", CourseObj.DayOfWeek.TUESDAY, 1, 10, "erc", "abc", 10, 100));
+        CourseObj.DayOfWeek[] a = {CourseObj.DayOfWeek.TUESDAY, CourseObj.DayOfWeek.FRIDAY};
+        courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", a, "1PM", "2PM", "erc", "abc", 10, 100));
     }
 
     private void initializeAdapter(){

@@ -3,7 +3,6 @@ package com.ucsdcse110.tritonnections;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Entities;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -21,7 +20,6 @@ class TritonlinkLoginTask extends HTTPRequestTask<String> {
                     "urn:mace:ucsd.edu:sso:authmethod=urn:mace:ucsd.edu:sso:studentsso";
 
     protected boolean loggedIn = false;
-
     private String pid;
     private String pw;
 
@@ -41,11 +39,6 @@ class TritonlinkLoginTask extends HTTPRequestTask<String> {
         String response = request(lastUrl, String.format(studentSSOParam, pid, pw), "POST");
 
         Document doc = Jsoup.parse(response);
-
-        Document.OutputSettings settings = doc.outputSettings();
-        settings.prettyPrint(false);
-        settings.escapeMode(Entities.EscapeMode.extended);
-        settings.charset("ASCII");
 
         // TODO: Error handling for incorrect PID/password
         Element relayStateElement = doc.select("[name=\"RelayState\"]").first();

@@ -171,22 +171,34 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
 
             try {
-                System.out.println(response.length());
-                Document doc = Jsoup.parse(response);
-                Element nameElement = doc.select("div > h2").first();
-                if (nameElement == null) {
-                    nameElement = doc.select("#tdr_login_content > strong").first();
-                }
-                String name = nameElement.ownText();
-                System.out.println(name);
                 AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
-                alertDialog.setTitle("Login Successful");
-                alertDialog.setMessage("Hello, "+name+"!");
+                String title;
+                String message;
+                final boolean successful = exception == null;
+
+                if (successful) {
+                    Document doc = Jsoup.parse(response);
+                    Element nameElement = doc.select("div > h2").first();
+                    if (nameElement == null) {
+                        nameElement = doc.select("#tdr_login_content > strong").first();
+                    }
+                    String name = nameElement.ownText();
+                    System.out.println(name);
+
+                    title = "Login Successful";
+                    message = "Hello, " + name + "!";
+                } else {
+                    title = "Login Failed";
+                    message = exception.getMessage();
+                }
+
+                alertDialog.setTitle(title);
+                alertDialog.setMessage(message);
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                finish();
+                                if (successful) finish();
                             }
                         });
                 alertDialog.show();

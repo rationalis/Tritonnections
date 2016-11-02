@@ -63,7 +63,7 @@ abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
         } catch (Exception e) {
             this.exception = e;
             e.printStackTrace();
-            return "Failed";
+            return null;
         }
     }
 }

@@ -31,6 +31,8 @@ class TritonlinkLoginTask extends HTTPRequestTask<String> {
     protected String doInBackground(String... params) {
         if (loggedIn) return lastResponse;
 
+        exception = null; // reset
+
         CookieManager cookieManager = new CookieManager();
         CookieHandler.setDefault(cookieManager);
         ((CookieManager) CookieHandler.getDefault()).setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -38,12 +40,15 @@ class TritonlinkLoginTask extends HTTPRequestTask<String> {
         request(tritonlinkUrl, null, "GET");
         String response = request(lastUrl, String.format(studentSSOParam, pid, pw), "POST");
 
-        Document doc = Jsoup.parse(response);
+        if (response.matches("(?s).*Login failed: Please check\\s*user name and password.*")) {
+            exception = new LoginFailedException("Please check PID and password.");
+            return null;
+        }
 
-        // TODO: Error handling for incorrect PID/password
+        Document doc = Jsoup.parse(response);
         Element relayStateElement = doc.select("[name=\"RelayState\"]").first();
-        String relayState = relayStateElement.attr("value");
         Element SAMLResponseElement = doc.select("[name=\"SAMLResponse\"]").first();
+        String relayState = relayStateElement.attr("value");
         String SAMLResponse = SAMLResponseElement.attr("value");
 
         try {
@@ -58,11 +63,14 @@ class TritonlinkLoginTask extends HTTPRequestTask<String> {
             pw = null;
             return response;
         } catch (Exception e) {
+            exception = e;
             return null;
         }
     }
+
+    class LoginFailedException extends RuntimeException {
+        public LoginFailedException(String message) {
+            super(message);
+        }
+    }
 }
-
-
-
-

@@ -1,5 +1,10 @@
 package com.ucsdcse110.tritonnections;
 
+import org.jsoup.*;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -119,10 +124,51 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
 
             System.out.println("Iteration "+i+" of courses in LoadScheduleCardsTask");
 
-            String[] courseInfo = courses[i].split("<td  class=\"crsheader\">");
+            System.out.println(courses[i]);
+
+            Document page = Jsoup.parse(courses[i]);
+
+            Elements sections = page.select(".sectxt");
+            for (int j = 0 ; j < sections.size();j++){
+                Element cur = sections.get(j);
+                Elements info = cur.select(".brdr");
+
+                String sectionID = info.eq(3).text();
+                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(info.eq(4).text());
+                String section = info.eq(5).text();
+                String days = info.eq(6).text();
+                String time = info.eq(7).text();
+                String[] times = time.split("-");
+                String startTime = times[1];
+                String endTime = times[2];
+                String location = info.eq(8).text() + " " + info.eq(9).text();
+                String instructor = info.eq(10).text();
+                if (instructor == null)
+                    instructor = "";
+                int seatsAvailable = Integer.parseInt(info.eq(11).text());
+                int seatsLimit = Integer.parseInt(info.eq(12).text());
+
+                List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
+                if (days.contains("M")) daysList.add(CourseObj.DayOfWeek.M);
+                if (days.matches("Tu")) daysList.add(CourseObj.DayOfWeek.Tu);
+                if (days.contains("W")) daysList.add(CourseObj.DayOfWeek.W);
+                if (days.contains("Th")) daysList.add(CourseObj.DayOfWeek.Th);
+                if (days.contains("F")) daysList.add(CourseObj.DayOfWeek.F);
+                if (days.contains("S")) daysList.add(CourseObj.DayOfWeek.S);
+
+                courseList.add(new CourseObj(
+                        sectionID,type,section,
+                        daysList.toArray(new CourseObj.DayOfWeek[]{}),
+                        startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
+
+            }
+
+            /*String[] courseInfo = courses[i].split("<td  class=\"crsheader\">");
             String courseCode = courseInfo[1].split("<")[0];
             String courseName = courseInfo[1].split("class=\"boldtxt\">")[1].split("</")[0];
+            */
 
+            /*
             Matcher matcher = pattern.matcher(courses[i]);
 
             while (matcher.find()) {
@@ -152,7 +198,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                         sectionID,type,section,
                         daysList.toArray(new CourseObj.DayOfWeek[]{}),
                         startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
-            }
+            }*/
         }
 
         return courseList;

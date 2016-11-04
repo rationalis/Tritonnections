@@ -124,11 +124,11 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
 
             System.out.println("Iteration "+i+" of courses in LoadScheduleCardsTask");
 
-            System.out.println(courses[i]);
-
             Document page = Jsoup.parse(courses[i]);
 
             Elements sections = page.select(".sectxt");
+
+            //System.out.println("THERE ARE "+sections.size() + " SECTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             for (int j = 0 ; j < sections.size();j++){
                 Element cur = sections.get(j);
                 Elements info = cur.select(".brdr");

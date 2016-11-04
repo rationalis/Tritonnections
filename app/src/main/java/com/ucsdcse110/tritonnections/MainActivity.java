@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit_message);
 
         String query = editText.getText().toString();
-        setContentView(webView);
+        //setContentView(webView);
         try {
-            new LoadScheduleWebviewTask(webView).execute(query);
-//            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
-//            intent.putExtra("query", query);
-//            startActivity(intent);
+            //new LoadScheduleWebviewTask(webView).execute(query);
+            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+            intent.putExtra("query", query);
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }

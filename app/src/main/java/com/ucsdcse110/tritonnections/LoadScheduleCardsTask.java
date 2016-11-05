@@ -14,6 +14,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
     public static final String url = "https://act.ucsd.edu/scheduleOfClasses/scheduleOfClassesStudentResult.htm";
 
     protected List<CourseObj> doInBackground(String... params) {
+        // TODO: Use Builder pattern for search options
         String urlParameters =
                 "selectedTerm=FA16&xsoc_term=&" +
                         "loggedIn=false&" +
@@ -90,7 +91,6 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                         "_showPopup=on";
         String html = request(url, urlParameters, "POST");
 
-        // TODO: Switch to using Jsoup.
         Pattern pattern = Pattern.compile("(\\d\\d\\d\\d\\d\\d)"+
                 "\\s*<td class=\"brdr\"><span id=\"insTyp\"\\stitle=\"[a-zA-Z]*\">"+
                 "(\\w\\w)</span></td>\\s*?<td class=\"brdr\">" +
@@ -118,35 +118,40 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
 
         ArrayList<CourseObj> courseList = new ArrayList<CourseObj>();
 
-        String[] courses = html.split("<tr\\s*>\\s*<td class=\"crsheader\">");
+        Document doc = Jsoup.parse(html);
+        Elements courses = doc.select("tr:has(.crsheader)");
 
-        for (int i = 1; i < courses.length; i++){
-
-            System.out.println("Iteration "+i+" of courses in LoadScheduleCardsTask");
-
-            Document page = Jsoup.parse(courses[i]);
-
-            Elements sections = page.select(".sectxt");
-
-            //System.out.println("THERE ARE "+sections.size() + " SECTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            for (int j = 0 ; j < sections.size();j++){
-                Element cur = sections.get(j);
+        // TODO: Properly handle missing fields
+        // TODO: Treat courses as the primary object, with sections indicated correctly.
+        for (Element course : courses) {
+            for (Element cur = course.nextElementSibling();
+                 cur != null && cur.tagName().equals("tr") && cur.className().equals("sectxt") && !cur.html().contains("Cancelled");
+                 cur = cur.nextElementSibling())
+            {
+                //System.out.println(cur.html()); if (true) continue;
                 Elements info = cur.select(".brdr");
 
-                String sectionID = info.eq(3).text();
-                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(info.eq(4).text());
-                String section = info.eq(5).text();
-                String days = info.eq(6).text();
-                String time = info.eq(7).text();
-                String[] times = time.split("-");
-                String startTime = times[1];
-                String endTime = times[2];
-                String location = info.eq(8).text() + " " + info.eq(9).text();
-                String instructor = info.eq(10).text();
+                String sectionID = info.eq(2).text();
+                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(info.eq(3).text());
+                String section = info.eq(4).text();
+                String days = info.eq(5).text();
+                String time = info.eq(6).text();
+                String[] times = time.split("\\-");
+                String startTime = times[0];
+                String endTime = times[1];
+                String location = info.eq(7).text() + " " + info.eq(8).text();
+                String instructor = info.eq(9).text();
                 if (instructor == null)
                     instructor = "";
-                int seatsAvailable = Integer.parseInt(info.eq(11).text());
-                int seatsLimit = Integer.parseInt(info.eq(12).text());
+                int seatsAvailable;
+                int seatsLimit;
+                try {
+                    seatsAvailable = Integer.parseInt(info.eq(10).text());
+                    seatsLimit = Integer.parseInt(info.eq(11).text());
+                } catch (NumberFormatException e) {
+                    seatsAvailable = 0;
+                    seatsLimit = 0;
+                }
 
                 List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
                 if (days.contains("M")) daysList.add(CourseObj.DayOfWeek.M);
@@ -162,43 +167,6 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                         startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
 
             }
-
-            /*String[] courseInfo = courses[i].split("<td  class=\"crsheader\">");
-            String courseCode = courseInfo[1].split("<")[0];
-            String courseName = courseInfo[1].split("class=\"boldtxt\">")[1].split("</")[0];
-            */
-
-            /*
-            Matcher matcher = pattern.matcher(courses[i]);
-
-            while (matcher.find()) {
-                System.out.println("A while iteration of matcher in LoadScheduleCardsTask");
-                String sectionID = matcher.group(1);
-                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(matcher.group(2));
-                String section = matcher.group(3);
-                String days = matcher.group(4);
-                String startTime = matcher.group(5);
-                String endTime = matcher.group(6);
-                String location = matcher.group(7) + " " + matcher.group(8);
-                String instructor = matcher.group(10);
-                if (instructor == null)
-                    instructor = "";
-                int seatsAvailable = Integer.parseInt(matcher.group(11));
-                int seatsLimit = Integer.parseInt(matcher.group(12));
-
-                List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
-                if (days.contains("M")) daysList.add(CourseObj.DayOfWeek.M);
-                if (days.matches("T[WFS\b]")) daysList.add(CourseObj.DayOfWeek.T);
-                if (days.contains("W")) daysList.add(CourseObj.DayOfWeek.W);
-                if (days.contains("Th")) daysList.add(CourseObj.DayOfWeek.Th);
-                if (days.contains("F")) daysList.add(CourseObj.DayOfWeek.F);
-                if (days.contains("S")) daysList.add(CourseObj.DayOfWeek.S);
-
-                courseList.add(new CourseObj(
-                        sectionID,type,section,
-                        daysList.toArray(new CourseObj.DayOfWeek[]{}),
-                        startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
-            }*/
         }
 
         return courseList;

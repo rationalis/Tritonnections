@@ -9,6 +9,9 @@ class CourseObj {
         M, Tu, W, Th, F, S, Su
     }
 
+    public final String department;
+    public final String courseCode;
+    public final String courseName;
     public final String sixDigitSectionID;
     public final MeetingType type;
     public final String sectionID;
@@ -20,7 +23,10 @@ class CourseObj {
     public final int seatsAvailable;
     public final int seatsLimit;
 
-    public CourseObj(String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek[] dayOfWeek, String startTime, String endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
+    public CourseObj(String department, String courseCode, String courseName, String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek[] dayOfWeek, String startTime, String endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
+        this.department = department;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
         this.sixDigitSectionID = sixDigitSectionID;
         this.type = type;
         this.sectionID = sectionID;

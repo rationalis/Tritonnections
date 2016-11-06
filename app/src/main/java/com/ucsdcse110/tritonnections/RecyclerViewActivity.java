@@ -36,8 +36,9 @@ public class RecyclerViewActivity extends Activity {
         try {
             courseList = task.get();
         } catch (Exception e) {
-            CourseObj.DayOfWeek[] a = {CourseObj.DayOfWeek.Tu, CourseObj.DayOfWeek.F};
-            courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", a, "1PM", "2PM", "erc", "abc", 10, 100));
+            e.printStackTrace();
+            //CourseObj.DayOfWeek[] a = {CourseObj.DayOfWeek.Tu, CourseObj.DayOfWeek.F};
+            //courseList.add(new CourseObj("123456",CourseObj.MeetingType.LE, "ABC", a, "1PM", "2PM", "erc", "abc", 10, 100));
         }
         System.out.println("Finished initializing data for RV");
     }

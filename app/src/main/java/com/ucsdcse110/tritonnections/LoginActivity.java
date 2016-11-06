@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -198,7 +199,10 @@ public class LoginActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
-                                if (successful) finish();
+                                if (successful) {
+                                    Intent intent = new Intent(LoginActivity.this, NavigationDrawer.class);
+                                    startActivity(intent);
+                                }
                             }
                         });
                 alertDialog.show();

@@ -124,6 +124,13 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
         // TODO: Properly handle missing fields
         // TODO: Treat courses as the primary object, with sections indicated correctly.
         for (Element course : courses) {
+            Elements header = course.select(".crsheader");
+            String courseCode = header.eq(1).text();
+            String catalogLink = header.eq(2).select("a").attr("href");
+            Matcher m = Pattern.compile("courses/([A-Z]+?)\\.html").matcher(catalogLink);
+            m.find();
+            String department = m.group(0);
+            String courseName = header.eq(2).select("span").text();
             for (Element cur = course.nextElementSibling();
                  cur != null && cur.tagName().equals("tr") && cur.className().equals("sectxt") && !cur.html().contains("Cancelled");
                  cur = cur.nextElementSibling())
@@ -162,6 +169,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                 if (days.contains("S")) daysList.add(CourseObj.DayOfWeek.S);
 
                 courseList.add(new CourseObj(
+                        department, courseCode, courseName,
                         sectionID,type,section,
                         daysList.toArray(new CourseObj.DayOfWeek[]{}),
                         startTime,endTime,location,instructor,seatsAvailable,seatsLimit));

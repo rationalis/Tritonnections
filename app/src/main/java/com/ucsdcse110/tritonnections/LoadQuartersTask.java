@@ -25,6 +25,7 @@ public class LoadQuartersTask extends HTTPRequestTask<HashMap<String,String>> {
 
         for (Element quarter : quarters) {
             terms.put(quarter.text(), quarter.val());
+            System.out.println(quarter.val());
         }
 
 

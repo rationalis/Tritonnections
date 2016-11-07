@@ -23,15 +23,6 @@ public class MainActivity extends AppCompatActivity {
         webView = new WebView(this);
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-
-        Button btn = (Button)findViewById(R.id.open_activity_button);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
     }
 
     public void searchScheduleOfClasses(View view) {

@@ -1,6 +1,7 @@
 package com.ucsdcse110.tritonnections;
 
-class CourseObj {
+class CourseObj
+{
     public enum MeetingType {
         LE, DI, LA, RE, FI, SE, TU
     }
@@ -38,4 +39,68 @@ class CourseObj {
         this.seatsAvailable = seatsAvailable;
         this.seatsLimit = seatsLimit;
     }
+
+    public String dayToString() {
+        String res = "";
+        for (DayOfWeek day : dayOfWeek) {
+            switch (day) {
+                case M:
+                    res += "M";
+                    break;
+                case Tu:
+                    res += "Tu";
+                    break;
+                case W:
+                    res += "W";
+                    break;
+                case Th:
+                    res += "Th";
+                    break;
+                case F:
+                    res += "F";
+                    break;
+                case S:
+                    res += "S";
+                    break;
+                case Su:
+                    res += "Su";
+                    break;
+                default:
+                    break;
+            }
+        }
+        return res;
+    }
+
+    public String typeToString() {
+        String res = "";
+
+        switch (type) {
+            case LE:
+                res += "LE";
+                break;
+            case DI:
+                res += "DI";
+                break;
+            case LA:
+                res += "LA";
+                break;
+            case RE:
+                res += "RE";
+                break;
+            case FI:
+                res += "FI";
+                break;
+            case SE:
+                res += "SE";
+                break;
+            case TU:
+                res += "TU";
+                break;
+            default:
+                break;
+        }
+        return res;
+    }
+
 }

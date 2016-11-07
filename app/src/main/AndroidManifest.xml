@@ -32,7 +32,7 @@
             android:label="@string/title_activity_recyclerview" />
         <activity
             android:name=".MainActivity"
-            android:label="just try" />
+            android:label="Search" />
         <activity android:name=".ContentActivity"></activity>
     </application>
 

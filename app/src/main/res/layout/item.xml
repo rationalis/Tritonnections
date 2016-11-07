@@ -30,16 +30,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:text="CourseName"/>
+
+            <TextView
+                android:id="@+id/ccode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="0dp"
+                android:textSize="20dp"
+                android:text="CourseCode"/>
 
             <TextView
                 android:id="@+id/cinstructor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@+id/cname"
                 android:layout_marginTop="20dp"
                 android:text="CourseInstrctor"/>
@@ -48,17 +57,49 @@
                 android:id="@+id/clocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/cname"
+                android:layout_alignLeft="@+id/cname"
+                android:textSize="20dp"
                 android:text="CourseLocation"/>
+
+            <TextView
+                android:id="@+id/ctype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/clocation"
+                android:layout_alignLeft="@+id/cname"
+                android:textSize="20dp"
+                android:text="CourseType"/>
+
+            <TextView
+                android:id="@+id/cweek"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/ctype"
+                android:layout_below="@id/clocation"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
+                android:text="CourseDay"/>
+
 
             <TextView
                 android:id="@+id/ctime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/clocation"
+                android:layout_toRightOf="@id/cweek"
+                android:layout_marginLeft="20dp"
+                android:textSize="20dp"
                 android:text="CourseTime"/>
+
+            <TextView
+                android:id="@+id/cseat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ccode"
+                android:layout_alignParentRight="true"
+                android:textSize="20dp"
+                android:text="Seat"/>
 
         </RelativeLayout>
 

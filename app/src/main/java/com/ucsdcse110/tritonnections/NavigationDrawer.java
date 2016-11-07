@@ -86,6 +86,9 @@ public class NavigationDrawer extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_postboard) {
 
+        } else if (id == R.id.nav_login) {
+            Intent intent = new Intent(NavigationDrawer.this, LoginActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
 
         }

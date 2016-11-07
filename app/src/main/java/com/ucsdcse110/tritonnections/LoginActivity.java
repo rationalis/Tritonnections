@@ -200,8 +200,9 @@ public class LoginActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                                 if (successful) {
-                                    Intent intent = new Intent(LoginActivity.this, NavigationDrawer.class);
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(LoginActivity.this, NavigationDrawer.class);
+                                    //startActivity(intent);
+                                    finish();
                                 }
                             }
                         });

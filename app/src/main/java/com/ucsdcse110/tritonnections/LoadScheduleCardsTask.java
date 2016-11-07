@@ -129,7 +129,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
             String catalogLink = header.eq(2).select("a").attr("href");
             Matcher m = Pattern.compile("courses/([A-Z]+?)\\.html").matcher(catalogLink);
             m.find();
-            String department = m.group(0);
+            String department = m.group(1);
             String courseName = header.eq(2).select("span").text();
             for (Element cur = course.nextElementSibling();
                  cur != null && cur.tagName().equals("tr") && cur.className().equals("sectxt") && !cur.html().contains("Cancelled");
@@ -147,7 +147,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                 String startTime = times[0];
                 String endTime = times[1];
                 String location = info.eq(7).text() + " " + info.eq(8).text();
-                String instructor = info.eq(9).text();
+                String instructor = info.eq(9).text().trim();
                 if (instructor == null)
                     instructor = "";
                 int seatsAvailable;

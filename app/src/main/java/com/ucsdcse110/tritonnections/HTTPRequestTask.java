@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
     protected Exception exception;
@@ -25,6 +26,10 @@ abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
     }
 
     protected String request(String url, String urlParameters, String method) {
+        return request(url, urlParameters, method, null);
+    }
+
+    protected String request(String url, String urlParameters, String method, Map<String, String> requestProperties) {
         try {
             if (method == null) method = "GET";
             String nextUrl = url;
@@ -37,6 +42,12 @@ abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
                 con.setInstanceFollowRedirects(false);
                 con.setUseCaches(false);
                 con.setRequestMethod(method);
+
+                if (requestProperties != null) {
+                    for (String key : requestProperties.keySet()) {
+                        con.setRequestProperty(key, requestProperties.get(key));
+                    }
+                }
 
                 if (urlParameters != null) {
                     con.setDoOutput(true);

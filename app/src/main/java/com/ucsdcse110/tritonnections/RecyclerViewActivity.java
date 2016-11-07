@@ -38,6 +38,13 @@ public class RecyclerViewActivity extends Activity {
             courseList = task.get();
             initializeAdapter();
             for (CourseObj course : courseList) {
+                if (course.department == null ||
+                        course.courseCode == null ||
+                        course.instructor == null ||
+                        course.department.isEmpty() ||
+                        course.courseCode.isEmpty() ||
+                        course.instructor.isEmpty()) continue;
+
                 new LoadCapeGpaTask(course, adapter).execute();
             }
         } catch (Exception e) {

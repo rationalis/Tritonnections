@@ -26,11 +26,13 @@ public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
         String html = request(
                 "http://cape.ucsd.edu/responses/Results.aspx?CourseNumber="+course,null,"GET", requestProperties);
         Document doc = Jsoup.parse(html);
+        // TODO: Fix case of matching e.g. MUS 95 when searching for MUS 9
         Element tr = doc.select("tr:contains("+instructor+")").first();
         Element gpaReceivedElem = tr.select("span[id*=GradeReceived]").first();
         String gpaReceived = gpaReceivedElem.text();
 
-        obj.setCapeGPA(gpaReceived);
+        // TODO: Maybe handle N/A better?
+        if (!gpaReceived.equals("N/A")) obj.setCapeGPA(gpaReceived);
         return null;
     }
 

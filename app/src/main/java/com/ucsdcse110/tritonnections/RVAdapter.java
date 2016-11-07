@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -67,8 +66,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         courseViewHolder.courseWeek.setText(courseList.get(i).dayToString());
         courseViewHolder.courseTime.setText(courseList.get(i).startTime + "-" + courseList.get(i).endTime);
         courseViewHolder.courseSeat.setText(courseList.get(i).seatsAvailable + "/" + courseList.get(i).seatsLimit);
-        if (courseList.get(i).getCapeGPA() != null)
+        if (courseList.get(i).getCapeGPA() == null) {
+            courseViewHolder.courseGPA.setVisibility(View.INVISIBLE);
+        } else {
+            courseViewHolder.courseGPA.setVisibility(View.VISIBLE);
             courseViewHolder.courseGPA.setText("Average GPA: " + courseList.get(i).getCapeGPA());
+        }
     }
 
     @Override

@@ -7,11 +7,8 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
-import android.widget.Toast;
-import android.widget.Button;
-import android.content.Intent;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     private WebView webView;
     private long exitTime = 0;
@@ -32,27 +29,11 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(webView);
         try {
             //new LoadScheduleWebviewTask(webView).execute(query);
-            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+            Intent intent = new Intent(SearchActivity.this, RecyclerViewActivity.class);
             intent.putExtra("query", query);
             startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
-                Toast.makeText(getApplicationContext(), "再按一次退出程序",
-                        Toast.LENGTH_SHORT).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                super.onBackPressed();
-            }
-
         }
     }
 }

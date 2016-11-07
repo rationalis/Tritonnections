@@ -31,7 +31,7 @@
             android:name=".RecyclerViewActivity"
             android:label="@string/title_activity_recyclerview" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SearchActivity"
             android:label="Search" />
         <activity android:name=".ContentActivity"></activity>
     </application>

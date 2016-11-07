@@ -103,7 +103,7 @@ class CourseObj
         }
         return res;
     }
-    
+
     public void setCapeGPA(String s) {
         capeGPA = s;
     }

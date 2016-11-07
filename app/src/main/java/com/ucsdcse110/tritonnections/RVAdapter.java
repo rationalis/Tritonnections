@@ -23,7 +23,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         TextView courseWeek;
         TextView courseTime;
         TextView courseSeat;
-
+        TextView courseGPA;
         CourseViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.cv);
@@ -35,6 +35,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
             courseWeek = (TextView)itemView.findViewById(R.id.cweek);
             courseTime = (TextView)itemView.findViewById(R.id.ctime);
             courseSeat = (TextView)itemView.findViewById(R.id.cseat);
+            courseGPA = (TextView)itemView.findViewById(R.id.cgpa);
         }
     }
 
@@ -66,6 +67,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         courseViewHolder.courseWeek.setText(courseList.get(i).dayToString());
         courseViewHolder.courseTime.setText(courseList.get(i).startTime + "-" + courseList.get(i).endTime);
         courseViewHolder.courseSeat.setText(courseList.get(i).seatsAvailable + "/" + courseList.get(i).seatsLimit);
+        courseViewHolder.courseGPA.setText("Average GPA: " + courseList.get(i).getCapeGPA());
     }
 
     @Override

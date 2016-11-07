@@ -12,6 +12,7 @@ public class RecyclerViewActivity extends Activity {
 
     private List<CourseObj> courseList = new ArrayList<CourseObj>();
     private RecyclerView rv;
+    private RVAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class RecyclerViewActivity extends Activity {
         rv.setHasFixedSize(true);
 
         initializeData();
-        initializeAdapter();
+        //initializeAdapter();
     }
 
     private void initializeData(){
@@ -35,8 +36,9 @@ public class RecyclerViewActivity extends Activity {
         task.execute(getIntent().getStringExtra("query"));
         try {
             courseList = task.get();
+            initializeAdapter();
             for (CourseObj course : courseList) {
-                new LoadCapeGpaTask(course).execute();
+                new LoadCapeGpaTask(course, adapter).execute();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,7 +50,7 @@ public class RecyclerViewActivity extends Activity {
 
     private void initializeAdapter(){
         System.out.println("Started initializing adapter for RV");
-        RVAdapter adapter = new RVAdapter(courseList);
+        adapter = new RVAdapter(courseList);
         rv.setAdapter(adapter);
         System.out.println("Finished initializing adapter for RV");
     }

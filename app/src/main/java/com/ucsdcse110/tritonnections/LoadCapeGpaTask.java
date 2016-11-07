@@ -8,11 +8,14 @@ import java.util.HashMap;
 
 public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
     private CourseObj obj;
+    private RVAdapter adapter;
 
-    public LoadCapeGpaTask(CourseObj obj) {
+    public LoadCapeGpaTask(CourseObj obj, RVAdapter adapter) {
         this.obj = obj;
+        this.adapter = adapter;
     }
 
+    @Override
     protected Void doInBackground(String... params) {
         String course = obj.department + "+" + obj.courseCode;
         String instructor = obj.instructor;
@@ -32,5 +35,10 @@ public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
 
         obj.setCapeGPA(gpaReceived);
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void result) {
+        adapter.notifyDataSetChanged();
     }
 }

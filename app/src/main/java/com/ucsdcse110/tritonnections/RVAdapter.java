@@ -67,7 +67,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         courseViewHolder.courseWeek.setText(courseList.get(i).dayToString());
         courseViewHolder.courseTime.setText(courseList.get(i).startTime + "-" + courseList.get(i).endTime);
         courseViewHolder.courseSeat.setText(courseList.get(i).seatsAvailable + "/" + courseList.get(i).seatsLimit);
-        courseViewHolder.courseGPA.setText("Average GPA: " + courseList.get(i).getCapeGPA());
+        if (courseList.get(i).getCapeGPA() != null)
+            courseViewHolder.courseGPA.setText("Average GPA: " + courseList.get(i).getCapeGPA());
     }
 
     @Override

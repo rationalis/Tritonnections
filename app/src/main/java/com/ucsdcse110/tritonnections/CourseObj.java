@@ -23,6 +23,7 @@ class CourseObj
     public final String instructor;
     public final int seatsAvailable;
     public final int seatsLimit;
+    private String capeGPA;
 
     public CourseObj(String department, String courseCode, String courseName, String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek[] dayOfWeek, String startTime, String endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
         this.department = department;
@@ -101,6 +102,14 @@ class CourseObj
                 break;
         }
         return res;
+    }
+    
+    public void setCapeGPA(String s) {
+        capeGPA = s;
+    }
+
+    public String getCapeGPA() {
+        return capeGPA;
     }
 
 }

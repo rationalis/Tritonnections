@@ -35,6 +35,9 @@ public class RecyclerViewActivity extends Activity {
         task.execute(getIntent().getStringExtra("query"));
         try {
             courseList = task.get();
+            for (CourseObj course : courseList) {
+                new LoadCapeGpaTask(course).execute();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             //CourseObj.DayOfWeek[] a = {CourseObj.DayOfWeek.Tu, CourseObj.DayOfWeek.F};

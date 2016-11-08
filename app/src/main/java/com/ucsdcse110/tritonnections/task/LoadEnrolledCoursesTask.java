@@ -1,12 +1,10 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.task;
+
+import com.ucsdcse110.tritonnections.CourseObj;
 
 import java.util.List;
 
-/**
- * Created by Amin on 11/6/2016.
- */
-
-public class CheckEnrollmentTask extends HTTPRequestTask<List<CourseObj>> {
+public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
     @Override
     protected List<CourseObj> doInBackground(String... params) {
         String url = "https://act.ucsd.edu/studentEnrolledClasses/enrolledclasses";

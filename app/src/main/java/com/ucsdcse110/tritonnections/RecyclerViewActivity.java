@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.ucsdcse110.tritonnections.task.LoadCapeGpaTask;
+import com.ucsdcse110.tritonnections.task.LoadScheduleCardsTask;
+
 import java.util.ArrayList;
 import java.util.List;
 

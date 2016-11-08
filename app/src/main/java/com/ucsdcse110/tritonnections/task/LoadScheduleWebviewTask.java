@@ -1,8 +1,8 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.task;
 
 import android.webkit.WebView;
 
-class LoadScheduleWebviewTask extends HTTPRequestTask<String> {
+public class LoadScheduleWebviewTask extends HTTPRequestTask<String> {
 
     public static final String url = "https://act.ucsd.edu/scheduleOfClasses/scheduleOfClassesStudentResult.htm";
     private final WebView view;

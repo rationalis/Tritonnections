@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.task;
 
 import android.os.AsyncTask;
 
@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
+public abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
     protected Exception exception;
     protected String lastResponse;
     protected String lastUrl;

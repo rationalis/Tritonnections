@@ -1,4 +1,6 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.task;
+
+import com.ucsdcse110.tritonnections.CourseObj;
 
 import org.jsoup.*;
 import org.jsoup.nodes.Document;

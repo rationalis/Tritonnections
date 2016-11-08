@@ -1,6 +1,6 @@
 package com.ucsdcse110.tritonnections;
 
-class CourseObj
+public class CourseObj
 {
     public enum MeetingType {
         LE, DI, LA, RE, FI, SE, TU

@@ -57,20 +57,21 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
-        courseViewHolder.courseName.setText(courseList.get(i).courseName);
-        courseViewHolder.courseCode.setText(courseList.get(i).department + " " + courseList.get(i).courseCode);
-        courseViewHolder.courseLocation.setText(courseList.get(i).location);
-        courseViewHolder.courseInstructor.setText(courseList.get(i).instructor);
-        courseViewHolder.courseType.setText(courseList.get(i).typeToString());
-        courseViewHolder.courseWeek.setText(courseList.get(i).dayToString());
-        courseViewHolder.courseTime.setText(courseList.get(i).startTime + "-" + courseList.get(i).endTime);
-        courseViewHolder.courseSeat.setText(courseList.get(i).seatsAvailable + "/" + courseList.get(i).seatsLimit);
-        if (courseList.get(i).getCapeGPA() == null) {
-            courseViewHolder.courseGPA.setVisibility(View.INVISIBLE);
+    public void onBindViewHolder(CourseViewHolder cvh, int i) {
+        CourseObj obj = courseList.get(i);
+        cvh.courseName.setText(obj.courseName);
+        cvh.courseCode.setText(obj.department + " " + obj.courseCode);
+        cvh.courseLocation.setText(obj.location);
+        cvh.courseInstructor.setText(obj.instructor);
+        cvh.courseType.setText(obj.type.name());
+        cvh.courseWeek.setText(obj.dayToString());
+        cvh.courseTime.setText(obj.startTime + "-" + obj.endTime);
+        cvh.courseSeat.setText(obj.seatsAvailable + "/" + obj.seatsLimit);
+        if (obj.getCapeGPA() == null) {
+            cvh.courseGPA.setVisibility(View.INVISIBLE);
         } else {
-            courseViewHolder.courseGPA.setVisibility(View.VISIBLE);
-            courseViewHolder.courseGPA.setText("Average GPA: " + courseList.get(i).getCapeGPA());
+            cvh.courseGPA.setVisibility(View.VISIBLE);
+            cvh.courseGPA.setText("Average GPA: " + obj.getCapeGPA());
         }
     }
 

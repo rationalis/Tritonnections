@@ -67,11 +67,11 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.CourseViewHolder> 
         cvh.courseWeek.setText(obj.dayToString());
         cvh.courseTime.setText(obj.startTime + "-" + obj.endTime);
         cvh.courseSeat.setText(obj.seatsAvailable + "/" + obj.seatsLimit);
-        if (obj.getCapeGPA() == null) {
+        if (obj.getCapeGpa() == null) {
             cvh.courseGPA.setVisibility(View.INVISIBLE);
         } else {
             cvh.courseGPA.setVisibility(View.VISIBLE);
-            cvh.courseGPA.setText("Average GPA: " + obj.getCapeGPA());
+            cvh.courseGPA.setText("Average GPA: " + obj.getCapeGpa());
         }
     }
 

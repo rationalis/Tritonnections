@@ -1,7 +1,8 @@
 package com.ucsdcse110.tritonnections.task;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.ucsdcse110.tritonnections.CourseObj;
-import com.ucsdcse110.tritonnections.RVAdapter;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,9 +12,9 @@ import java.util.HashMap;
 
 public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
     private CourseObj obj;
-    private RVAdapter adapter;
+    private RecyclerView.Adapter adapter;
 
-    public LoadCapeGpaTask(CourseObj obj, RVAdapter adapter) {
+    public LoadCapeGpaTask(CourseObj obj, RecyclerView.Adapter adapter) {
         this.obj = obj;
         this.adapter = adapter;
     }
@@ -35,7 +36,7 @@ public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
         String gpaReceived = gpaReceivedElem.text();
 
         // TODO: Maybe handle N/A better?
-        if (!gpaReceived.equals("N/A")) obj.setCapeGPA(gpaReceived);
+        if (!gpaReceived.equals("N/A")) obj.setCapeGpa(gpaReceived);
         return null;
     }
 

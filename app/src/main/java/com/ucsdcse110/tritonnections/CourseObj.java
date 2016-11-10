@@ -23,7 +23,7 @@ public class CourseObj
     public final String instructor;
     public final int seatsAvailable;
     public final int seatsLimit;
-    private String capeGPA;
+    private String capeGpa;
 
     public CourseObj(String department, String courseCode, String courseName, String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek[] dayOfWeek, String startTime, String endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
         this.department = department;
@@ -49,12 +49,12 @@ public class CourseObj
         return res;
     }
 
-    public void setCapeGPA(String s) {
-        capeGPA = s;
+    public void setCapeGpa(String s) {
+        capeGpa = s;
     }
 
-    public String getCapeGPA() {
-        return capeGPA;
+    public String getCapeGpa() {
+        return capeGpa;
     }
 
 }

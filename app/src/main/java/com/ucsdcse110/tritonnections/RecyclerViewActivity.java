@@ -15,7 +15,8 @@ public class RecyclerViewActivity extends Activity {
 
     private List<CourseObj> courseList = new ArrayList<CourseObj>();
     private RecyclerView rv;
-    private RVAdapter adapter;
+    //private RVAdapter adapter;
+    private RecyclerView.Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,8 @@ public class RecyclerViewActivity extends Activity {
 
     private void initializeAdapter(){
         System.out.println("Started initializing adapter for RV");
-        adapter = new RVAdapter(courseList);
+        // adapter = new RVAdapter(courseList);
+        adapter = new CourseObjRvAdapter(courseList);
         rv.setAdapter(adapter);
         System.out.println("Finished initializing adapter for RV");
     }

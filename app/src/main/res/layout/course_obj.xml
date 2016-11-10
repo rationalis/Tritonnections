@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="course" type="com.ucsdcse110.tritonnections.CourseObj"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card:cardBackgroundColor="#80cbc4"
+            card:cardCornerRadius="10dp"
+            card:cardElevation="10dp"
+
+            card:cardMaxElevation="10dp"
+            card:cardPreventCornerOverlap="true"
+            card:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+
+                <TextView
+                    android:id="@+id/clocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cname"
+                    android:layout_alignLeft="@+id/cname"
+                    android:textSize="15dp"
+                    android:text="@{course.location}"/>
+
+                <TextView
+                    android:id="@+id/ctype"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/clocation"
+                    android:layout_alignLeft="@+id/cname"
+                    android:textSize="15dp"
+                    android:text="@{course.type.name()}"/>
+
+                <TextView
+                    android:id="@+id/cweek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/ctype"
+                    android:layout_below="@id/clocation"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15dp"
+                    android:text="@{course.dayToString()}"/>
+
+
+                <TextView
+                    android:id="@+id/ctime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/clocation"
+                    android:layout_toRightOf="@id/cweek"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15dp"
+                    android:text='@{course.startTime + "-" + course.endTime}'/>
+
+                <TextView
+                    android:id="@+id/cgpa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ctype"
+                    android:layout_alignLeft="@+id/cname"
+                    android:textSize="15dp"
+                    android:text='@{course.capeGpa == null ? "" : ("Average GPA: " + course.capeGpa)}'/>
+
+                <TextView
+                    android:id="@+id/cname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="@{course.courseName}"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <TextView
+                    android:id="@+id/cinstructor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{course.instructor}"
+                    android:layout_below="@+id/ctime"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/cseat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text='@{course.seatsAvailable + "/" + course.seatsLimit}'
+                    android:layout_above="@+id/cinstructor"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/ccode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text='@{course.department + " " + course.courseCode}'
+                    android:layout_above="@+id/ctime"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</layout>

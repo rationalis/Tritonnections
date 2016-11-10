@@ -19,7 +19,7 @@ public class TritonlinkLoginTask extends HTTPRequestTask<String> {
                     "submit=submit&"+
                     "urn:mace:ucsd.edu:sso:authmethod=urn:mace:ucsd.edu:sso:studentsso";
 
-    protected boolean loggedIn = false;
+    private boolean loggedIn = false;
     private String pid;
     private String pw;
 
@@ -68,7 +68,11 @@ public class TritonlinkLoginTask extends HTTPRequestTask<String> {
         }
     }
 
-    class LoginFailedException extends RuntimeException {
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    static class LoginFailedException extends RuntimeException {
         public LoginFailedException(String message) {
             super(message);
         }

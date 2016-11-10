@@ -93,31 +93,6 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                         "_showPopup=on";
         String html = request(url, urlParameters, "POST");
 
-        Pattern pattern = Pattern.compile("(\\d\\d\\d\\d\\d\\d)"+
-                "\\s*<td class=\"brdr\"><span id=\"insTyp\"\\stitle=\"[a-zA-Z]*\">"+
-                "(\\w\\w)</span></td>\\s*?<td class=\"brdr\">" +
-                "([A-Z]\\d\\d)</td>\\s*?<td class=\"brdr\">" +
-                "([MTuWhF]*)\\s*?</td>\\s*?<td class=\"brdr\">"+
-                "([0-9]*:[0-9]*[ap])-" +
-                "([0-9]*:[0-9]*[ap])</td>\\s*?<td class=\"brdr\">" +
-                "(\\w*)</td>\\s*?<td class=\"brdr\">" +
-                "(\\w*?)\\s*?</td>\\s*?<td class=\"brdr\">\\s*?"+
-                "(<a href='mailto:.*?@.*?'>(\\w*,\\w.*?)\\s*?</a>\\s*?<br>)?\\s*?</td>\\s*?" +
-                "(<td class=\"brdr\">(\\d+)</td>)?\\s*?" +
-                "(<td class=\"brdr\">(\\d+)</td>)?");
-        /*
-            Notes on this pattern. Group 1 is the section ID.
-            Group 2 is the meeting type.
-            Group 3 is the Section.
-            Group 4 is the days of meeting.
-            Group 5 is the start time.
-            Group 6 is the end time.
-            Groups 7 and 8 together are the location.
-            Group 9 is the instructor's email.
-            Group 10 is the instructor's name.
-            Group 11 is the available seats, group 12 is the seat limit.
-         */
-
         ArrayList<CourseObj> courseList = new ArrayList<CourseObj>();
 
         Document doc = Jsoup.parse(html);
@@ -134,7 +109,9 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
             String department = m.group(1);
             String courseName = header.eq(2).select("span").text();
             for (Element cur = course.nextElementSibling();
-                 cur != null && cur.tagName().equals("tr") && cur.className().equals("sectxt") && !cur.html().contains("Cancelled");
+                 cur != null && cur.tagName().equals("tr") &&
+                         cur.className().equals("sectxt") &&
+                         !cur.html().contains("Cancelled");
                  cur = cur.nextElementSibling())
             {
                 //System.out.println(cur.html()); if (true) continue;
@@ -163,12 +140,11 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                 }
 
                 List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
-                if (days.contains("M")) daysList.add(CourseObj.DayOfWeek.M);
-                if (days.matches("Tu")) daysList.add(CourseObj.DayOfWeek.Tu);
-                if (days.contains("W")) daysList.add(CourseObj.DayOfWeek.W);
-                if (days.contains("Th")) daysList.add(CourseObj.DayOfWeek.Th);
-                if (days.contains("F")) daysList.add(CourseObj.DayOfWeek.F);
-                if (days.contains("S")) daysList.add(CourseObj.DayOfWeek.S);
+                for (CourseObj.DayOfWeek day : CourseObj.DayOfWeek.values()) {
+                    if (days.contains(day.toString())) {
+                        daysList.add(day);
+                    }
+                }
 
                 courseList.add(new CourseObj(
                         department, courseCode, courseName,

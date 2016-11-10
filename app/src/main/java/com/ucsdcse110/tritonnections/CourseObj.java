@@ -25,7 +25,19 @@ public class CourseObj
     public final int seatsLimit;
     private String capeGpa;
 
-    public CourseObj(String department, String courseCode, String courseName, String sixDigitSectionID, MeetingType type, String sectionID, DayOfWeek[] dayOfWeek, String startTime, String endTime, String location, String instructor, int seatsAvailable, int seatsLimit) {
+    public CourseObj(String department,
+                     String courseCode,
+                     String courseName,
+                     String sixDigitSectionID,
+                     MeetingType type,
+                     String sectionID,
+                     DayOfWeek[] dayOfWeek,
+                     String startTime,
+                     String endTime,
+                     String location,
+                     String instructor,
+                     int seatsAvailable,
+                     int seatsLimit) {
         this.department = department;
         this.courseCode = courseCode;
         this.courseName = courseName;

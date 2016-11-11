@@ -29,7 +29,10 @@
         </activity>
         <activity
             android:name=".EnrolledRecyclerViewActivity"
-            android:label="@string/title_activity_recyclerview" />
+            android:label="Enrolled Classes" />
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:label="Schedule Of Classes" />
         <activity
             android:name=".SearchActivity"
             android:label="Search" />

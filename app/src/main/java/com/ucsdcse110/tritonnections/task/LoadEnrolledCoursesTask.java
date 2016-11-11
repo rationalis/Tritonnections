@@ -40,7 +40,7 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
             Elements header = course.select("td");
             String department = header.eq(1).text();
             String courseCode = header.eq(2).text();
-            String courseName = header.eq(3).select("span").text();
+            String courseName = header.eq(3).text();
             String instructor = header.eq(6).text();
             for (Element cur = course.nextElementSibling().nextElementSibling();
                  cur != null && cur.tagName().equals("tr") &&
@@ -53,8 +53,9 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
                 System.out.println("inputs:"+info.size());
 
                 String sectionID = getValue(info, "sectionId");
+                sectionID = sectionID.matches("\\d+") ? sectionID : "";
                 String meeting = getValue(info, "subjectType");
-                System.out.println("subjecttypes:"+info.select("[name=subjectType]").first().attr("value"));
+                //System.out.println("subjecttypes:"+info.select("[name=subjectType]").first().attr("value"));
                 CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(meeting.substring(0,2).toUpperCase());
                 String section = getValue(info, "courseSection");
                 String days = getValue(info, "unitDays");

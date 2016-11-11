@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/ctype"
                     android:layout_below="@id/clocation"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:textSize="15dp"
                     android:text="@{course.dayToString()}"/>
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/clocation"
                     android:layout_toRightOf="@id/cweek"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="15dp"
                     android:textSize="15dp"
                     android:text='@{course.startTime + "-" + course.endTime}'/>
 
@@ -93,6 +93,7 @@
                     android:id="@+id/cinstructor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13.5dp"
                     android:text="@{course.instructor}"
                     android:layout_below="@+id/ctime"
                     android:layout_alignParentRight="true"

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ucsdcse110.tritonnections.task.HTTPRequestTask;
 import com.ucsdcse110.tritonnections.task.TritonlinkLoginTask;
 
 import org.jsoup.Jsoup;
@@ -119,8 +120,9 @@ public class LoginActivity extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new LoginTestTask(pid, password);
-            mAuthTask.execute();
+            //mAuthTask = new LoginTestTask(pid, password);
+            //mAuthTask.execute();
+            new LoginTestTask(TritonlinkLoginManager.login(pid, password)).execute();
         }
     }
 
@@ -164,9 +166,20 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public class LoginTestTask extends TritonlinkLoginTask {
-        LoginTestTask(String pid, String pw) {
-            super(pid, pw);
+    public class LoginTestTask extends HTTPRequestTask<String> {
+        private TritonlinkLoginTask task;
+
+        public LoginTestTask(TritonlinkLoginTask task) {
+            this.task = task;
+        }
+
+        protected String doInBackground(String... params) {
+            try {
+                return task.get();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return "";
+            }
         }
 
         protected void onPostExecute(String response) {

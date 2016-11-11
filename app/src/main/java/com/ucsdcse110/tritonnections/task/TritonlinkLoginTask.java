@@ -4,9 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.net.URLEncoder;
 
 public class TritonlinkLoginTask extends HTTPRequestTask<String> {
@@ -32,10 +29,6 @@ public class TritonlinkLoginTask extends HTTPRequestTask<String> {
         if (loggedIn) return lastResponse;
 
         exception = null; // reset
-
-        CookieManager cookieManager = new CookieManager();
-        CookieHandler.setDefault(cookieManager);
-        ((CookieManager) CookieHandler.getDefault()).setCookiePolicy(CookiePolicy.ACCEPT_ALL);
 
         request(tritonlinkUrl, null, "GET");
         String response = request(lastUrl, String.format(studentSSOParam, pid, pw), "POST");

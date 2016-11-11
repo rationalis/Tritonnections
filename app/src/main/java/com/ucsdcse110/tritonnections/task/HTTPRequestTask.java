@@ -6,11 +6,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
+    public static CookieManager cookieManager;
+
+    static {
+        cookieManager = new CookieManager();
+        CookieHandler.setDefault(cookieManager);
+        ((CookieManager) CookieHandler.getDefault()).setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+    }
+
     protected Exception exception;
     protected String lastResponse;
     protected String lastUrl;
@@ -62,6 +76,7 @@ public abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {
                 respCode = con.getResponseCode();
                 System.out.println("\nSending '"+method+"' request to URL : " + nextUrl);
                 System.out.println("Response Code : " + respCode);
+                //System.out.println(HTTPRequestTask.cookieManager.get(new URI(nextUrl), new HashMap<String, List<String>>()));
                 lastResponse = readStream(con.getInputStream());
 
                 nextUrl = con.getHeaderField("Location");

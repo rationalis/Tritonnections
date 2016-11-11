@@ -104,7 +104,16 @@ public class NavigationDrawer extends AppCompatActivity
             Intent intent = new Intent(NavigationDrawer.this, LoginActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
-
+            TritonlinkLoginManager.logout();
+            AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
+            alertDialog.setTitle("Logged Out");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

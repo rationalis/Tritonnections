@@ -32,7 +32,7 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(td[bgcolor=\"#C0C0C0\"]) + tr");
 
-        System.out.println("# bg:"+doc.select("td[bgcolor=#C0C0C0]").size());
+        //System.out.println("# bg:"+doc.select("td[bgcolor=#C0C0C0]").size());
 
         // TODO: Properly handle missing fields
         // TODO: Treat courses as the primary object, with sections indicated correctly.
@@ -50,7 +50,7 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
             {
                 //System.out.println(cur.html()); //if (true) continue;
                 Elements info = cur.select("input[type=\"hidden\"]");
-                System.out.println("inputs:"+info.size());
+                //System.out.println("inputs:"+info.size());
 
                 String sectionID = getValue(info, "sectionId");
                 sectionID = sectionID.matches("\\d+") ? sectionID : "";

@@ -5,28 +5,23 @@
         <item
             android:id="@+id/nav_schedule"
             android:icon="@android:drawable/ic_menu_recent_history"
-            android:title="Schedule" />
+            android:title="Enrolled courses" />
         <item
             android:id="@+id/nav_search"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Search" />
+            android:title="Schedule of classes" />
         <item
             android:id="@+id/nav_postboard"
             android:icon="@android:drawable/ic_menu_info_details"
-            android:title="Postboard" />
+            android:title="Forum" />
         <item
             android:id="@+id/nav_login"
             android:icon="@drawable/ic_menu_login"
             android:title="Login" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_menu_logout"
+            android:title="Logout" />
     </group>
-
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Logout" />
-        </menu>
-    </item>
 
 </menu>

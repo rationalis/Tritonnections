@@ -1,5 +1,6 @@
 package com.ucsdcse110.tritonnections;
 
+import com.ucsdcse110.tritonnections.task.HTTPRequestTask;
 import com.ucsdcse110.tritonnections.task.TritonlinkLoginTask;
 
 public class TritonlinkLoginManager {
@@ -23,6 +24,12 @@ public class TritonlinkLoginManager {
         task.execute();
 
         return task;
+    }
+
+    // TODO: Actually logout instead of just clearing out cookies
+    public static void logout() {
+        task = null;
+        HTTPRequestTask.cookieManager.getCookieStore().removeAll();
     }
 
     public static class LoginRequiredException extends RuntimeException {

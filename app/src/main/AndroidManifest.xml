@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".EnrolledRecyclerViewActivity"
             android:label="@string/title_activity_recyclerview" />
         <activity
             android:name=".SearchActivity"

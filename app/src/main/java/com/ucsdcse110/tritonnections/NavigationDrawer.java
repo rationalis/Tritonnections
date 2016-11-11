@@ -1,5 +1,6 @@
 package com.ucsdcse110.tritonnections;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -76,8 +78,23 @@ public class NavigationDrawer extends AppCompatActivity
         Fragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         if (id == R.id.nav_schedule) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            //FragmentManager fragmentManager = getSupportFragmentManager();
+            //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            if (!TritonlinkLoginManager.isLoggedIn()) {
+                AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
+                alertDialog.setTitle("Login Required");
+                alertDialog.setMessage("Please login first.");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.show();
+            } else {
+                Intent intent = new Intent(NavigationDrawer.this, EnrolledRecyclerViewActivity.class);
+                startActivity(intent);
+            }
         } else if (id == R.id.nav_search) {
             Intent intent = new Intent(NavigationDrawer.this, SearchActivity.class);
             startActivity(intent);

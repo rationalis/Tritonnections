@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,7 +21,7 @@ public class NavigationDrawer extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        showSearchFragment();
+        showFragment(new SearchFragment());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,12 +97,11 @@ public class NavigationDrawer extends AppCompatActivity
                 startActivity(intent);
             }
         } else if (id == R.id.nav_search) {
-            showSearchFragment();
+            showFragment(new SearchFragment());
         } else if (id == R.id.nav_postboard) {
 
         } else if (id == R.id.nav_login) {
-            Intent intent = new Intent(NavigationDrawer.this, LoginActivity.class);
-            startActivity(intent);
+            showFragment(new LoginFragment());
         } else if (id == R.id.nav_logout) {
             TritonlinkLoginManager.logout();
             AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
@@ -122,11 +122,11 @@ public class NavigationDrawer extends AppCompatActivity
         return true;
     }
 
-    private void showSearchFragment()
+    private void showFragment(Fragment f)
     {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.flContent, new SearchFragment())
+                .replace(R.id.flContent, f)
                 .commit();
     }
 }

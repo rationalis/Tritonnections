@@ -98,6 +98,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(.crsheader)");
 
+        // TODO: Handle TBA
         // TODO: Properly handle missing fields
         // TODO: Treat courses as the primary object, with sections indicated correctly.
         for (Element course : courses) {

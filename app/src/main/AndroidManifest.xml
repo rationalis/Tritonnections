@@ -16,9 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"/>
-        <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/AppTheme.NoActionBar"
@@ -31,12 +28,6 @@
         <activity
             android:name=".EnrolledRecyclerViewActivity"
             android:label="Enrolled Classes" />
-        <activity
-            android:name=".RecyclerViewActivity"
-            android:label="Schedule Of Classes" />
-        <activity
-            android:name=".SearchActivity"
-            android:label="Search" />
         <activity android:name=".ContentActivity"></activity>
     </application>
 

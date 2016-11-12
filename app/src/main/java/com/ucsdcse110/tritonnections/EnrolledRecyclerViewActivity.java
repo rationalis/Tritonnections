@@ -12,6 +12,7 @@ import com.ucsdcse110.tritonnections.task.LoadScheduleCardsTask;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Merge this with RecyclerViewFragment
 public class EnrolledRecyclerViewActivity extends Activity {
 
     private List<CourseObj> courseList = new ArrayList<CourseObj>();

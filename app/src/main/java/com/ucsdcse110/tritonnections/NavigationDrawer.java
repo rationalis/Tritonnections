@@ -14,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
+
+import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.ENROLLED_CLASSES;
+
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,8 +39,6 @@ public class NavigationDrawer extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
     @Override
@@ -76,8 +78,6 @@ public class NavigationDrawer extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-//        Fragment fragment = new SearchFragment();
-//        Bundle args = new Bundle();
         if (id == R.id.nav_schedule) {
 //            FragmentManager fragmentManager = getSupportFragmentManager();
 //            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
@@ -93,8 +93,9 @@ public class NavigationDrawer extends AppCompatActivity
                         });
                 alertDialog.show();
             } else {
-                Intent intent = new Intent(NavigationDrawer.this, EnrolledRecyclerViewActivity.class);
-                startActivity(intent);
+                Bundle args = new Bundle();
+                args.putParcelable("builder", new LoadCoursesTaskBuilder().setType(ENROLLED_CLASSES));
+                showFragment(new CoursesRecyclerViewFragment(), args);
             }
         } else if (id == R.id.nav_search) {
             showFragment(new SearchFragment());
@@ -127,6 +128,12 @@ public class NavigationDrawer extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flContent, f)
+                .addToBackStack(null)
                 .commit();
+    }
+
+    private void showFragment(Fragment f, Bundle b) {
+        f.setArguments(b);
+        showFragment(f);
     }
 }

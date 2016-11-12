@@ -1,5 +1,7 @@
 package com.ucsdcse110.tritonnections.task;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.ucsdcse110.tritonnections.CourseObj;
 
 import org.jsoup.*;
@@ -12,10 +14,14 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
-public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
+public class LoadScheduleCardsTask extends LoadCoursesTask {
     public static final String url = "https://act.ucsd.edu/scheduleOfClasses/scheduleOfClassesStudentResult.htm";
 
-    protected List<CourseObj> doInBackground(String... params) {
+    public LoadScheduleCardsTask(List<CourseObj> courseList, RecyclerView.Adapter adapter) {
+        super(courseList, adapter);
+    }
+
+    protected Void doInBackground(String... params) {
         // TODO: Use Builder pattern for search options
         String urlParameters =
                 "selectedTerm=FA16&xsoc_term=&" +
@@ -93,8 +99,6 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
                         "_showPopup=on";
         String html = request(url, urlParameters, "POST");
 
-        ArrayList<CourseObj> courseList = new ArrayList<CourseObj>();
-
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(.crsheader)");
 
@@ -155,8 +159,7 @@ public class LoadScheduleCardsTask extends HTTPRequestTask<List<CourseObj>> {
 
             }
         }
-
-        return courseList;
+        return null;
     }
 }
 

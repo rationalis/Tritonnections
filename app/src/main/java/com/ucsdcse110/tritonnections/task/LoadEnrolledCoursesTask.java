@@ -1,5 +1,7 @@
 package com.ucsdcse110.tritonnections.task;
 
+import android.support.v7.widget.RecyclerView;
+
 import com.ucsdcse110.tritonnections.CourseObj;
 
 import org.jsoup.Jsoup;
@@ -11,7 +13,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
+public class LoadEnrolledCoursesTask extends LoadCoursesTask {
+    public LoadEnrolledCoursesTask(List<CourseObj> courseList, RecyclerView.Adapter adapter) {
+        super(courseList, adapter);
+    }
+
     private static String getValue(Elements e, String name) {
         Element e0 = e.select("[name=\""+name+"\"]").first().parent();
 //        System.out.println(e0.html());
@@ -19,15 +25,13 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
     }
 
     @Override
-    protected List<CourseObj> doInBackground(String... params) {
+    protected Void doInBackground(String... params) {
 //        String url = "https://act.ucsd.edu/studentEnrolledClasses/print?jlinkevent=Default&termCode=FA16";
         String url = "https://act.ucsd.edu/studentEnrolledClasses/enrolledclasses";
         HashMap<String, String> requestProperties = new HashMap<String, String>();
         requestProperties.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36");
         String html = request(url, null, "GET", requestProperties);
 //        System.out.println(html);
-
-        ArrayList<CourseObj> courseList = new ArrayList<CourseObj>();
 
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(td[bgcolor=\"#C0C0C0\"]) + tr");
@@ -80,7 +84,6 @@ public class LoadEnrolledCoursesTask extends HTTPRequestTask<List<CourseObj>> {
 
             }
         }
-
-        return courseList;
+        return null;
     }
 }

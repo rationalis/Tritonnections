@@ -1,8 +1,6 @@
 package com.ucsdcse110.tritonnections;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +9,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
+
+import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;
 
 
 public class SearchFragment extends Fragment {
@@ -26,9 +28,10 @@ public class SearchFragment extends Fragment {
 
                 String query = editText.getText().toString();
                 try {
-                    RecyclerViewFragment rvf = new RecyclerViewFragment();
+                    CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
                     Bundle args = new Bundle();
                     args.putString("query",query);
+                    args.putParcelable("builder", new LoadCoursesTaskBuilder().setType(SCHEDULE_OF_CLASSES));
                     rvf.setArguments(args);
 
                     getFragmentManager().beginTransaction()

@@ -11,12 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ucsdcse110.tritonnections.task.LoadCapeGpaTask;
+import com.ucsdcse110.tritonnections.task.LoadCoursesTask;
+import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
 import com.ucsdcse110.tritonnections.task.LoadScheduleCardsTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewFragment extends Fragment {
+public class CoursesRecyclerViewFragment extends Fragment {
     private List<CourseObj> courseList = new ArrayList<CourseObj>();
     private RecyclerView rv;
     private RecyclerView.Adapter adapter;
@@ -27,30 +29,18 @@ public class RecyclerViewFragment extends Fragment {
         rv = (RecyclerView) view.findViewById(R.id.rv);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
+        initializeAdapter();
         initializeData();
         return view;
     }
 
     private void initializeData(){
         System.out.println("Started initializing data for RV");
-        LoadScheduleCardsTask task = new LoadScheduleCardsTask();
+        LoadCoursesTask task = ((LoadCoursesTaskBuilder)getArguments().getParcelable("builder"))
+                .setCourseList(courseList)
+                .setAdapter(adapter)
+                .createLoadCoursesTask();
         task.execute(getArguments().getString("query"));
-        try {
-            courseList = task.get();
-            initializeAdapter();
-            for (CourseObj course : courseList) {
-                if (course.department == null ||
-                        course.courseCode == null ||
-                        course.instructor == null ||
-                        course.department.isEmpty() ||
-                        course.courseCode.isEmpty() ||
-                        course.instructor.isEmpty()) continue;
-
-                new LoadCapeGpaTask(course, adapter).execute();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         System.out.println("Finished initializing data for RV");
     }
 

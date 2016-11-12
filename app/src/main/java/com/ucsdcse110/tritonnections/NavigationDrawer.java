@@ -3,8 +3,6 @@ package com.ucsdcse110.tritonnections;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,6 +20,8 @@ public class NavigationDrawer extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
+        showSearchFragment();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +35,7 @@ public class NavigationDrawer extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        showDefaultFragment();
+
     }
 
     @Override
@@ -75,11 +75,11 @@ public class NavigationDrawer extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Fragment fragment = new SearchFragment();
-        Bundle args = new Bundle();
+//        Fragment fragment = new SearchFragment();
+//        Bundle args = new Bundle();
         if (id == R.id.nav_schedule) {
-            //FragmentManager fragmentManager = getSupportFragmentManager();
-            //fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
             if (!TritonlinkLoginManager.isLoggedIn()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
                 alertDialog.setTitle("Login Required");
@@ -96,8 +96,7 @@ public class NavigationDrawer extends AppCompatActivity
                 startActivity(intent);
             }
         } else if (id == R.id.nav_search) {
-            Intent intent = new Intent(NavigationDrawer.this, SearchActivity.class);
-            startActivity(intent);
+            showSearchFragment();
         } else if (id == R.id.nav_postboard) {
 
         } else if (id == R.id.nav_login) {
@@ -123,10 +122,11 @@ public class NavigationDrawer extends AppCompatActivity
         return true;
     }
 
-    private void showDefaultFragment()
+    private void showSearchFragment()
     {
-        Fragment fragment = new SearchFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.flContent, fragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flContent, new SearchFragment())
+                .commit();
     }
 }

@@ -7,10 +7,6 @@ import org.jsoup.select.Elements;
 
 import java.util.HashMap;
 
-/**
- * Created by Amin on 11/6/2016.
- */
-
 public class LoadQuartersTask extends HTTPRequestTask<HashMap<String,String>> {
     @Override
     protected HashMap<String, String> doInBackground(String... params) {

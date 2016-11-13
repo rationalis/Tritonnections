@@ -1,7 +1,5 @@
 package com.ucsdcse110.tritonnections;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ucsdcse110.tritonnections.task.LoadCapeGpaTask;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTask;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
-import com.ucsdcse110.tritonnections.task.LoadScheduleCardsTask;
 
 import java.util.ArrayList;
 import java.util.List;

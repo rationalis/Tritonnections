@@ -10,10 +10,7 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public abstract class HTTPRequestTask<O> extends AsyncTask<String, Void, O> {

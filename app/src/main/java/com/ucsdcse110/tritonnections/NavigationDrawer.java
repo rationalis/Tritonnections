@@ -99,7 +99,7 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_search) {
             showFragment(new SearchFragment());
         } else if (id == R.id.nav_postboard) {
-
+            showFragment (new ForumFragment());
         } else if (id == R.id.nav_login) {
             showFragment(new LoginFragment());
         } else if (id == R.id.nav_logout) {

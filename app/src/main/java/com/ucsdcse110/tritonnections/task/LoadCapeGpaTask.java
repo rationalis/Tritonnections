@@ -10,6 +10,8 @@ import org.jsoup.nodes.Element;
 
 import java.util.HashMap;
 
+// TODO: Cache results and/or batch to prevent duplicates
+
 public class LoadCapeGpaTask extends HTTPRequestTask<Void> {
     private CourseObj obj;
     private RecyclerView.Adapter adapter;

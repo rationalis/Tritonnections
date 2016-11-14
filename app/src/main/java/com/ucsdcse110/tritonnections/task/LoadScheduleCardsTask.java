@@ -101,7 +101,7 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(.crsheader)");
 
-        // TODO: Handle TBA
+        // TODO: Handle TBAs
         // TODO: Properly handle missing fields
         // TODO: Treat courses as the primary object, with sections indicated correctly.
         for (Element course : courses) {
@@ -110,7 +110,12 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
             String catalogLink = header.eq(2).select("a").attr("href");
             Matcher m = Pattern.compile("courses/([A-Z]+?)\\.html").matcher(catalogLink);
             m.find();
-            String department = m.group(1);
+            String department;
+            try {
+                department = m.group(1);
+            } catch (IllegalStateException e) {
+                continue;
+            }
             String courseName = header.eq(2).select("span").text();
             for (Element cur = course.nextElementSibling();
                  cur != null && cur.tagName().equals("tr") &&
@@ -118,44 +123,53 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
                          !cur.html().contains("Cancelled");
                  cur = cur.nextElementSibling())
             {
-                //System.out.println(cur.html()); if (true) continue;
-                Elements info = cur.select(".brdr");
-
-                String sectionID = info.eq(2).text();
-                CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(info.eq(3).text());
-                String section = info.eq(4).text();
-                String days = info.eq(5).text();
-                String time = info.eq(6).text();
-                String[] times = time.split("\\-");
-                String startTime = times[0];
-                String endTime = times[1];
-                String location = info.eq(7).text() + " " + info.eq(8).text();
-                String instructor = info.eq(9).text().trim();
-                if (instructor == null)
-                    instructor = "";
-                int seatsAvailable;
-                int seatsLimit;
                 try {
-                    seatsAvailable = Integer.parseInt(info.eq(10).text());
-                    seatsLimit = Integer.parseInt(info.eq(11).text());
-                } catch (NumberFormatException e) {
-                    seatsAvailable = 0;
-                    seatsLimit = 0;
-                }
+                    //System.out.println(cur.html()); if (true) continue;
+                    Elements info = cur.select(".brdr");
 
-                List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
-                for (CourseObj.DayOfWeek day : CourseObj.DayOfWeek.values()) {
-                    if (days.contains(day.toString())) {
-                        daysList.add(day);
+                    String sectionID = info.eq(2).text();
+                    CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(info.eq(3).text());
+                    String section = info.eq(4).text();
+                    String days = info.eq(5).text();
+                    String time = info.eq(6).text();
+
+                    String[] times = time.split("\\-");
+                    String startTime = times[0];
+                    String endTime = times[1];
+
+                    String location = info.eq(7).text() + " " + info.eq(8).text();
+
+                    String instructor = info.eq(9).text();
+                    if (instructor == null)
+                        instructor = "";
+                    instructor = instructor.trim();
+
+                    int seatsAvailable;
+                    int seatsLimit;
+                    try {
+                        seatsAvailable = Integer.parseInt(info.eq(10).text());
+                        seatsLimit = Integer.parseInt(info.eq(11).text());
+                    } catch (NumberFormatException e) {
+                        seatsAvailable = 0;
+                        seatsLimit = 0;
                     }
+
+                    List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();
+                    for (CourseObj.DayOfWeek day : CourseObj.DayOfWeek.values()) {
+                        if (days.contains(day.toString())) {
+                            daysList.add(day);
+                        }
+                    }
+
+                    courseList.add(new CourseObj(
+                            department, courseCode, courseName,
+                            sectionID, type, section,
+                            daysList.toArray(new CourseObj.DayOfWeek[]{}),
+                            startTime, endTime, location, instructor, seatsAvailable, seatsLimit));
                 }
-
-                courseList.add(new CourseObj(
-                        department, courseCode, courseName,
-                        sectionID,type,section,
-                        daysList.toArray(new CourseObj.DayOfWeek[]{}),
-                        startTime,endTime,location,instructor,seatsAvailable,seatsLimit));
-
+                catch (Exception e) {
+                    continue;
+                }
             }
         }
         return null;

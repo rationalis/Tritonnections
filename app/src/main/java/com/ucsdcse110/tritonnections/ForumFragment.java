@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections.task;
+package com.ucsdcse110.tritonnections;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,21 +16,18 @@ import android.support.v4.app.Fragment;
 
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;
 
-/**
- * Created by Chris_Ozawa on 11/13/16.
- */
 public class ForumFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         System.out.println("reached onCreateView");
-        final View view = inflater.inflate(R.layout.activity_search, container, false);
+        final View view = inflater.inflate(R.layout.fragment_forum, container, false);
 
         Button button = (Button) view.findViewById(R.id.forum_new_button);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
-                alertDialog.setTitle("Login Required");
-                alertDialog.setMessage("Please login first.");
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                alertDialog.setTitle("Testing");
+                alertDialog.setMessage("Test post please ignore");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

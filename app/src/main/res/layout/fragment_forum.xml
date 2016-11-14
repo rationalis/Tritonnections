@@ -18,7 +18,7 @@
 
             <EditText android:id="@+id/forum_edit_message"
                       android:layout_weight="1"
-                      android:layout_width="0dp"
+                      android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:hint="@string/edit_search" />
 
@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/action_sign_in"
+                    android:text="Button 1"
                     android:textStyle="bold" />
 
             <Button
@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/insert_button_text"
+                    android:text="Button 2"
                     android:textStyle="bold" />
 
         </LinearLayout>

@@ -7,7 +7,7 @@ import org.jsoup.select.Elements;
 
 import java.util.HashMap;
 
-public class LoadQuartersTask extends HTTPRequestTask<HashMap<String,String>> {
+public class LoadQuartersTask extends HTTPRequestTask<String, HashMap<String,String>> {
     @Override
     protected HashMap<String, String> doInBackground(String... params) {
         String url = "https://act.ucsd.edu/scheduleOfClasses/scheduleOfClassesStudent.htm";

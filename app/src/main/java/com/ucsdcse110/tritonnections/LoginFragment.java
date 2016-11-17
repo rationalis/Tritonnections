@@ -167,7 +167,7 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    public class LoginTestTask extends HTTPRequestTask<String> {
+    public class LoginTestTask extends HTTPRequestTask<String, String> {
         private TritonlinkLoginTask task;
 
         public LoginTestTask(TritonlinkLoginTask task) {

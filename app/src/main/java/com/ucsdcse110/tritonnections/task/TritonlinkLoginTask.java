@@ -6,7 +6,7 @@ import org.jsoup.nodes.Element;
 
 import java.net.URLEncoder;
 
-public class TritonlinkLoginTask extends HTTPRequestTask<String> {
+public class TritonlinkLoginTask extends HTTPRequestTask<String, String> {
     public static final String tritonlinkUrl = "http://mytritonlink.ucsd.edu";
     public static final String ucsdSsoSaml2Param = "https://act.ucsd.edu/Shibboleth.sso/SAML2/POST";
     public static final String studentSSOParam =

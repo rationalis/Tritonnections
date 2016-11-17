@@ -31,12 +31,11 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
         HashMap<String, String> requestProperties = new HashMap<String, String>();
         requestProperties.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36");
         String html = request(url, null, "GET", requestProperties);
-//        System.out.println(html);
 
         Document doc = Jsoup.parse(html);
         Elements courses = doc.select("tr:has(td[bgcolor=\"#C0C0C0\"]) + tr");
 
-        //System.out.println("# bg:"+doc.select("td[bgcolor=#C0C0C0]").size());
+        System.out.println("# of headers: "+courses.size());
 
         // TODO: Properly handle missing fields
         // TODO: Treat courses as the primary object, with sections indicated correctly.
@@ -46,20 +45,18 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
             String courseCode = header.eq(2).text();
             String courseName = header.eq(3).text();
             String instructor = header.eq(6).text();
-            for (Element cur = course.nextElementSibling().nextElementSibling();
-                 cur != null && cur.tagName().equals("tr") &&
-                         (cur.className().equals("white_background") ||
-                                 cur.className().equals("white_background_layer"));
-                 cur = cur.nextElementSibling())
+            for (Element cur = course.nextElementSibling();; cur = cur.nextElementSibling())
             {
-                //System.out.println(cur.html()); //if (true) continue;
+                if (courses.contains(cur) || cur == null)
+                    break;
+                if (!"white_background".equals(cur.className()) && !"white_background_layer".equals(cur.className()))
+                    continue;
+
                 Elements info = cur.select("input[type=\"hidden\"]");
-                //System.out.println("inputs:"+info.size());
 
                 String sectionID = getValue(info, "sectionId");
                 sectionID = sectionID.matches("\\d+") ? sectionID : "";
                 String meeting = getValue(info, "subjectType");
-                //System.out.println("subjecttypes:"+info.select("[name=subjectType]").first().attr("value"));
                 CourseObj.MeetingType type = CourseObj.MeetingType.valueOf(meeting.substring(0,2).toUpperCase());
                 String section = getValue(info, "courseSection");
                 String days = getValue(info, "unitDays");
@@ -83,6 +80,7 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
                         startTime,endTime,location,instructor,0,0));
 
             }
+            System.out.println("Course finished with courselistsize: "+courseList.size());
         }
         return null;
     }

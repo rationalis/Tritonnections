@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.ucsdcse110.tritonnections.task.LoadCoursesTask;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
+import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,8 @@ public class CoursesRecyclerViewFragment extends Fragment {
 
     private void initializeData(){
         System.out.println("Started initializing data for RV");
-        LoadCoursesTask task = ((LoadCoursesTaskBuilder)getArguments().getParcelable("builder"))
+        LoadCoursesTask task = new LoadCoursesTaskBuilder()
+                .setType((SourceType) getArguments().getSerializable("course source"))
                 .setCourseList(courseList)
                 .setAdapter(adapter)
                 .createLoadCoursesTask();

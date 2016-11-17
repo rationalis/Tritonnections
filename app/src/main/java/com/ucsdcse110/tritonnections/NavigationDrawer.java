@@ -93,7 +93,7 @@ public class NavigationDrawer extends AppCompatActivity
                 alertDialog.show();
             } else {
                 Bundle args = new Bundle();
-                args.putParcelable("builder", new LoadCoursesTaskBuilder().setType(ENROLLED_CLASSES));
+                args.putSerializable("course source", ENROLLED_CLASSES);
                 showFragment(new CoursesRecyclerViewFragment(), args);
             }
         } else if (id == R.id.nav_search) {

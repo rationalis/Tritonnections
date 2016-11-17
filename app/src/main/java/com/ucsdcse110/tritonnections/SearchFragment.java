@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment {
                     CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
                     Bundle args = new Bundle();
                     args.putString("query",query);
-                    args.putParcelable("builder", new LoadCoursesTaskBuilder().setType(SCHEDULE_OF_CLASSES));
+                    args.putSerializable("course source", SCHEDULE_OF_CLASSES);
                     rvf.setArguments(args);
 
                     getFragmentManager().beginTransaction()

@@ -18,7 +18,7 @@ public abstract class LoadCoursesTask extends HTTPRequestTask<String, Void> {
 
     @Override
     public void onPostExecute(Void result) {
-        System.out.println("finished with courselistsize:"+courseList.size());
+        System.out.println("finished with course list size: "+courseList.size());
         adapter.notifyDataSetChanged();
 
         try {

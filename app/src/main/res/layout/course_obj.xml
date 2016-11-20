@@ -17,9 +17,8 @@
             android:id="@+id/cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card:cardBackgroundColor="#80cbc4"
             card:cardCornerRadius="10dp"
-            card:cardElevation="10dp"
+            card:cardElevation="5dp"
 
             card:cardMaxElevation="10dp"
             card:cardPreventCornerOverlap="true"
@@ -95,7 +94,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13.5dp"
                     android:text="@{course.instructor}"
-                    android:layout_below="@+id/ctime"
+                    android:layout_below="@+id/cgpa"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 
@@ -105,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"
                     android:text='@{course.seatsAvailable + "/" + course.seatsLimit}'
-                    android:layout_above="@+id/cinstructor"
+                    android:layout_below="@+id/ccode"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
 

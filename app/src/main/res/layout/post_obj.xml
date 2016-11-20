@@ -17,9 +17,8 @@
             android:id="@+id/postcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card:cardBackgroundColor="#80cbc4"
             card:cardCornerRadius="10dp"
-            card:cardElevation="10dp"
+            card:cardElevation="5dp"
 
             card:cardMaxElevation="10dp"
             card:cardPreventCornerOverlap="true"

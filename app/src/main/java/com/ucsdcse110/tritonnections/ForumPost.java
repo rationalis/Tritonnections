@@ -5,7 +5,6 @@ package com.ucsdcse110.tritonnections;
  */
 
 public class ForumPost {
-    private ForumFragment parent;
     private String user;
     private String date;
 

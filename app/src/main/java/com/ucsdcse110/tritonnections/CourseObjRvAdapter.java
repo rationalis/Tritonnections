@@ -35,6 +35,11 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
     @Override
     public void onBindViewHolder(BindingHolder bindingHolder, int i) {
         final CourseObj course = courses.get(i);
+        switch (course.type)
+        {
+            case LE:
+
+        }
         bindingHolder.getBinding().setVariable(BR.course, course);
         bindingHolder.getBinding().executePendingBindings();
     }

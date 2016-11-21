@@ -38,6 +38,7 @@ public class ForumFragment extends Fragment {
     private DatabaseReference mDatabase;
     // [END declare_database_ref]
 
+    private EditText messageTitle;
     private EditText messageBody;
     private Button submitButton;
     private Button checkLastButton;
@@ -53,6 +54,7 @@ public class ForumFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END initialize_database_ref]
 
+        messageTitle = (EditText) view.findViewById(R.id.forum_edit_title);
         messageBody = (EditText) view.findViewById(R.id.forum_edit_message);
         submitButton = (Button) view.findViewById(R.id.forum_new_post_button);
 
@@ -66,34 +68,38 @@ public class ForumFragment extends Fragment {
         checkLastButton = (Button) view.findViewById(R.id.forum_check_last_post_button);
         checkLastButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-                alertDialog.setTitle("Latest Post Submitted");
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                mDatabase.child("posts").orderByKey().limitToLast(1).addListenerForSingleValueEvent(
-                        new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if (dataSnapshot.getValue() != null) {
-                                    alertDialog.setMessage(((Map<String, Object>)dataSnapshot.getValue())
-                                            .values()
-                                            .toArray(new String[0])[0]);
-                                } else {
-                                    alertDialog.setMessage("No posts available");
-                                }
-                                alertDialog.show();
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                System.out.println("Database error: " + databaseError.toString());
-                            }
-                        });
+                getFragmentManager().beginTransaction()
+                        .replace(container.getId(), new PostsRecyclerViewFragment())
+                        .addToBackStack(null)
+                        .commit();
+//                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+//                alertDialog.setTitle("Latest Post Submitted");
+//                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                mDatabase.child("posts").orderByKey().limitToLast(1).addListenerForSingleValueEvent(
+//                        new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(DataSnapshot dataSnapshot) {
+//                                if (dataSnapshot.getValue() != null) {
+//                                    alertDialog.setMessage(((Map<String, Object>)dataSnapshot.getValue())
+//                                            .values()
+//                                            .toArray(new String[0])[0]);
+//                                } else {
+//                                    alertDialog.setMessage("No posts available");
+//                                }
+//                                alertDialog.show();
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(DatabaseError databaseError) {
+//                                System.out.println("Database error: " + databaseError.toString());
+//                            }
+//                        });
             }
         });
 
@@ -101,14 +107,14 @@ public class ForumFragment extends Fragment {
     }
 
     private void submitPost() {
-        //final String title = mTitleField.getText().toString();
+        final String title = messageTitle.getText().toString();
         final String body = messageBody.getText().toString();
 
         // Title is required
-//        if (TextUtils.isEmpty(title)) {
-//            mTitleField.setError(REQUIRED);
-//            return;
-//        }
+        if (TextUtils.isEmpty(title)) {
+            messageTitle.setError(REQUIRED);
+            return;
+        }
 
         // Body is required
         if (TextUtils.isEmpty(body)) {
@@ -116,11 +122,25 @@ public class ForumFragment extends Fragment {
             return;
         }
 
+        if (!TritonlinkLoginManager.isLoggedIn()) {
+            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setTitle("Login Required");
+            alertDialog.setMessage("Please login first.");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+            return;
+        }
+
         // Disable button so there are no multi-posts
         setEditingEnabled(false);
         Toast.makeText(getActivity(), "Posting...", Toast.LENGTH_SHORT).show();
 
-        writeNewPost(body);
+        writeNewPost(title, body);
         setEditingEnabled(true);
     }
 
@@ -136,16 +156,16 @@ public class ForumFragment extends Fragment {
 
     // [START write_fan_out]
 //    private void writeNewPost(String userId, String username, String title, String body) {
-    private void writeNewPost(String body) {
+    private void writeNewPost(String title, String body) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
-        //Post post = new Post(userId, username, title, body);
-        //Map<String, Object> postValues = post.toMap();
+        PostObj post = new PostObj(TritonlinkLoginManager.pid().substring(3), title, body);
+        Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/posts/"+key, body);
-//        childUpdates.put("/posts/" + key, postValues);
+//        childUpdates.put("/posts/"+key, body);
+        childUpdates.put("/postobjs/" + key, postValues);
 //        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);

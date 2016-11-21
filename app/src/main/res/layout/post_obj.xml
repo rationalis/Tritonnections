@@ -4,7 +4,7 @@
     xmlns:card="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="course" type="com.ucsdcse110.tritonnections.CourseObj"/>
+        <variable name="post" type="com.ucsdcse110.tritonnections.PostObj"/>
     </data>
 
     <LinearLayout
@@ -38,7 +38,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:textSize="25dp"
-                    android:text="Title"/>
+                    android:text="@{post.title}"/>
 
                 <TextView
                     android:id="@+id/pbody"
@@ -47,7 +47,7 @@
                     android:layout_below="@id/ptitle"
                     android:layout_alignLeft="@+id/ptitle"
                     android:textSize="20dp"
-                    android:text="Body"/>
+                    android:text="@{post.body}"/>
 
                 <TextView
                     android:id="@+id/pauthor"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/pbody"
                     android:textSize="15dp"
-                    android:text="author"/>
+                    android:text="@{post.author}"/>
 
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:layout_below="@+id/pbody"
                     android:layout_alignParentRight="true"
                     android:textSize="15dp"
-                    android:text="Time"/>
+                    android:text="@{((Long)post.time).toString()}"/>
 
             </RelativeLayout>
 

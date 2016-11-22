@@ -37,6 +37,8 @@ public class TritonlinkLoginManager {
 
     // TODO: Actually logout instead of just clearing out cookies
     public static void logout() {
+        pid = null;
+        name = "Anonymous";
         task = null;
         HTTPRequestTask.cookieManager.getCookieStore().removeAll();
     }

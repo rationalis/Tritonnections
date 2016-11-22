@@ -109,7 +109,9 @@ public class ForumFragment extends Fragment {
 
     private void submitPost() {
         final String title = messageTitle.getText().toString();
+
         final String body = messageBody.getText().toString();
+
 
         // Title is required
         if (TextUtils.isEmpty(title)) {
@@ -143,6 +145,9 @@ public class ForumFragment extends Fragment {
 
         writeNewPost(title, body);
         setEditingEnabled(true);
+
+        messageTitle.setText("");
+        messageBody.setText("");
     }
 
     private void setEditingEnabled(boolean enabled) {

@@ -6,6 +6,7 @@ import com.ucsdcse110.tritonnections.task.TritonlinkLoginTask;
 public class TritonlinkLoginManager {
     private static TritonlinkLoginTask task;
     private static String pid;
+    private static String name = "Anonymous";
 
     public static boolean isLoggedIn() {
         return task != null && task.isLoggedIn();
@@ -14,6 +15,14 @@ public class TritonlinkLoginManager {
     public static String pid() {
         if (isLoggedIn()) return pid;
         else throw new LoginRequiredException();
+    }
+
+    public static void setName(String theirName){
+        name = theirName;
+    }
+
+    public static String getName(){
+        return name;
     }
 
     public static TritonlinkLoginTask login(String pid, String pw) {

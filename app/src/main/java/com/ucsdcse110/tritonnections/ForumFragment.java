@@ -66,6 +66,7 @@ public class ForumFragment extends Fragment {
         });
 
         checkLastButton = (Button) view.findViewById(R.id.forum_check_last_post_button);
+        checkLastButton.setText("READ LATEST POSTS");
         checkLastButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 getFragmentManager().beginTransaction()
@@ -160,7 +161,7 @@ public class ForumFragment extends Fragment {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
-        PostObj post = new PostObj(TritonlinkLoginManager.pid().substring(3), title, body);
+        PostObj post = new PostObj(TritonlinkLoginManager.getName(), title, body);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();

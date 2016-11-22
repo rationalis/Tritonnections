@@ -3,7 +3,7 @@ package com.ucsdcse110.tritonnections;
 public class CourseObj
 {
     public enum MeetingType {
-        LE, DI, LA, RE, FI, SE, TU
+        LE, DI, LA, RE, FI, SE, TU, MI
     }
 
     public enum DayOfWeek {

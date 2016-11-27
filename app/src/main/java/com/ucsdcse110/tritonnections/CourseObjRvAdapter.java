@@ -2,6 +2,7 @@ package com.ucsdcse110.tritonnections;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,8 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
         final CourseObj course = courses.get(i);
         bindingHolder.getBinding().setVariable(BR.course, course);
         bindingHolder.getBinding().executePendingBindings();
+        //View child = ((ViewGroup)bindingHolder.getBinding().getRoot()).getChildAt(0);
+        //child.setBackgroundColor(course.toColor());
     }
 
     @Override

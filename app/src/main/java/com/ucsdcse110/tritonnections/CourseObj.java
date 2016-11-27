@@ -1,5 +1,7 @@
 package com.ucsdcse110.tritonnections;
 
+import android.graphics.Color;
+
 public class CourseObj
 {
     public enum MeetingType {
@@ -23,7 +25,6 @@ public class CourseObj
     public final String instructor;
     public final int seatsAvailable;
     public final int seatsLimit;
-    public final String color;
     private String capeGpa;
 
     public CourseObj(String department,
@@ -52,7 +53,6 @@ public class CourseObj
         this.instructor = instructor;
         this.seatsAvailable = seatsAvailable;
         this.seatsLimit = seatsLimit;
-        this.color = toColor(type);
     }
 
     public String dayToString() {
@@ -71,26 +71,26 @@ public class CourseObj
         return capeGpa;
     }
 
-    public String toColor(MeetingType type)
+    public int toColor()
     {
         switch (type)
         {
             case DI:
-                return "#ff0000";
+                return 0xe0ccccff;
             case LA:
-                return "#00ff00";
+                return 0xe0eed2ee;
             case RE:
-                return "#0000ff";
+                return 0xe0ffc1c1;
             case FI:
-                return "#0000ff";
+                return 0xe0cccccc;
             case SE:
-                return "#0000ff";
+                return 0xe0cc99ff;
             case TU:
-                return "#0000ff";
+                return 0xe0fafad2;
             case MI:
-                return "#0000ff";
+                return 0xe0ccffcc;
             default:
-                return "#ffffff";
+                return 0xe0ffffff;
         }
     }
 

@@ -66,7 +66,7 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
                 String time = getValue(info, "titleTime");
                 String[] times = time.split(" \\- ");
                 String startTime = times[0];
-                String endTime = times[1];
+                String endTime = " ";
                 String location = getValue(info, "gradeBldg") + " " + getValue(info, "instructorRoom");
 
                 List<CourseObj.DayOfWeek> daysList = new ArrayList<CourseObj.DayOfWeek>();

@@ -23,7 +23,7 @@
             android:layout_marginTop="2dp"
             card:cardCornerRadius="5dp"
             card:elevation="1dp"
-            
+
             card:cardPreventCornerOverlap="true"
             card:cardUseCompatPadding="true">
 

@@ -23,6 +23,7 @@ public class CourseObj
     public final String instructor;
     public final int seatsAvailable;
     public final int seatsLimit;
+    public final String color;
     private String capeGpa;
 
     public CourseObj(String department,
@@ -51,6 +52,7 @@ public class CourseObj
         this.instructor = instructor;
         this.seatsAvailable = seatsAvailable;
         this.seatsLimit = seatsLimit;
+        this.color = toColor(type);
     }
 
     public String dayToString() {
@@ -67,6 +69,29 @@ public class CourseObj
 
     public String getCapeGpa() {
         return capeGpa;
+    }
+
+    public String toColor(MeetingType type)
+    {
+        switch (type)
+        {
+            case DI:
+                return "#ff0000";
+            case LA:
+                return "#00ff00";
+            case RE:
+                return "#0000ff";
+            case FI:
+                return "#0000ff";
+            case SE:
+                return "#0000ff";
+            case TU:
+                return "#0000ff";
+            case MI:
+                return "#0000ff";
+            default:
+                return "#ffffff";
+        }
     }
 
 }

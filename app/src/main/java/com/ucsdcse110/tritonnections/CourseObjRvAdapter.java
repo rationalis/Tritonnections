@@ -37,22 +37,6 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
     @Override
     public BindingHolder onCreateViewHolder(final ViewGroup viewGroup, int i) {
         CourseObjBinding binding = CourseObjBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
-        /*
-        viewGroup.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
-                Bundle args = new Bundle();
-                //args.putString("query", query);
-                args.putSerializable("course source", SCHEDULE_OF_CLASSES);
-                rvf.setArguments(args);
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                activity.getSupportFragmentManager().beginTransaction()
-                        .replace(viewGroup.getId(), rvf)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-        */
         return new BindingHolder(binding);
     }
 

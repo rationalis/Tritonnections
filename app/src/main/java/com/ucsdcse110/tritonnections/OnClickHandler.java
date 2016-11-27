@@ -14,9 +14,12 @@ public class OnClickHandler extends Fragment {
     public void onClickLecture(View view) {
         CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
         Bundle args = new Bundle();
+        //Fake data
+        args.putString("query", "cse 100");
         args.putSerializable("course source", SCHEDULE_OF_CLASSES);
         rvf.setArguments(args);
-        getFragmentManager().beginTransaction()
+        AppCompatActivity activity = (AppCompatActivity) view.getContext();
+        activity.getSupportFragmentManager().beginTransaction()
                 .replace(R.id.flContent, rvf)
                 .addToBackStack(null)
                 .commit();

@@ -20,8 +20,6 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
         private CourseObjBinding binding;
         public BindingHolder(CourseObjBinding binding) {
             super(binding.getRoot());
-            OnClickHandler handlers = new OnClickHandler();
-            binding.setHandlers(handlers);
             this.binding = binding;
         }
         public CourseObjBinding getBinding() {
@@ -30,9 +28,11 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
     }
 
     private List<CourseObj> courses;
+    private CourseOnClickHandler handler;
 
-    public CourseObjRvAdapter(List<CourseObj> courses) {
+    public CourseObjRvAdapter(List<CourseObj> courses, CourseOnClickHandler handler) {
         this.courses = courses;
+        this.handler = handler;
     }
     
     @Override
@@ -45,6 +45,7 @@ public class CourseObjRvAdapter extends RecyclerView.Adapter<CourseObjRvAdapter.
     public void onBindViewHolder(BindingHolder bindingHolder, int i) {
         final CourseObj course = courses.get(i);
         bindingHolder.getBinding().setVariable(BR.course, course);
+        bindingHolder.getBinding().setVariable(BR.handlers, handler.withObj(course));
         bindingHolder.getBinding().executePendingBindings();
     }
 

@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 // TODO: Handle edge cases
 // TODO: Kill/Pause on Fragment change
@@ -18,13 +19,15 @@ import java.util.Map;
 public class LoadCapeGpaTask extends HTTPRequestTask<CourseObj, Void> {
     private RecyclerView.Adapter adapter;
 
+    private static ConcurrentHashMap<String, String> gpaMap = new ConcurrentHashMap<String, String>();
+
     public LoadCapeGpaTask(RecyclerView.Adapter adapter) {
         this.adapter = adapter;
     }
 
     @Override
     protected Void doInBackground(CourseObj... courses) {
-        Map<String, String> gpaMap = new HashMap<String, String>();
+        //Map<String, String> gpaMap = new HashMap<String, String>();
         for (CourseObj course : courses) {
             String code = course.department + "+" + course.courseCode;
             String instructor = course.instructor;

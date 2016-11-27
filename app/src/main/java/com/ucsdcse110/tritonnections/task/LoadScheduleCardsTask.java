@@ -117,6 +117,10 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
                 continue;
             }
             String courseName = header.eq(2).select("span").text();
+
+            CourseObj primary = null;
+            List<CourseObj> sectionList = null;
+
             for (Element cur = course.nextElementSibling();
                  cur != null && cur.tagName().equals("tr") &&
                          cur.className().equals("sectxt") &&
@@ -161,11 +165,21 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
                         }
                     }
 
-                    courseList.add(new CourseObj(
+                    CourseObj obj = new CourseObj(
                             department, courseCode, courseName,
                             sectionID, type, section,
                             daysList.toArray(new CourseObj.DayOfWeek[]{}),
-                            startTime, endTime, location, instructor, seatsAvailable, seatsLimit));
+                            startTime, endTime, location, instructor, seatsAvailable, seatsLimit);
+
+                    if (primary == null) {
+                        courseList.add(obj);
+                        primary = obj;
+                        sectionList = new ArrayList<CourseObj>();
+                        sectionList.add(primary);
+                        map.put(primary, sectionList);
+                    } else {
+                        sectionList.add(obj);
+                    }
                 }
                 catch (Exception e) {
                     continue;

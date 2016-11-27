@@ -45,6 +45,9 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
             String courseCode = header.eq(2).text();
             String courseName = header.eq(3).text();
             String instructor = header.eq(6).text();
+
+            CourseObj primary = null;
+            List<CourseObj> sectionList = null;
             for (Element cur = course.nextElementSibling();; cur = cur.nextElementSibling())
             {
                 if (courses.contains(cur) || cur == null)
@@ -73,11 +76,21 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
                     }
                 }
 
-                courseList.add(new CourseObj(
+                CourseObj obj = new CourseObj(
                         department, courseCode, courseName,
                         sectionID,type,section,
                         daysList.toArray(new CourseObj.DayOfWeek[]{}),
-                        startTime,endTime,location,instructor,0,0));
+                        startTime,endTime,location,instructor,0,0);
+
+                if (primary == null) {
+                    courseList.add(obj);
+                    primary = obj;
+                    sectionList = new ArrayList<CourseObj>();
+                    sectionList.add(primary);
+                    map.put(primary, sectionList);
+                } else {
+                    sectionList.add(obj);
+                }
 
             }
             System.out.println("Course finished with courselistsize: "+courseList.size());

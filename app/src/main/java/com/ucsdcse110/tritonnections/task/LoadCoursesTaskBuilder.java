@@ -14,7 +14,7 @@ public class LoadCoursesTaskBuilder {
     public LoadCoursesTaskBuilder() {}
 
     public enum SourceType {
-        SCHEDULE_OF_CLASSES, ENROLLED_CLASSES
+        SCHEDULE_OF_CLASSES, ENROLLED_CLASSES, LIST
     }
 
     public LoadCoursesTaskBuilder setType(SourceType type) {

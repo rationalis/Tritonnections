@@ -37,14 +37,6 @@
                     android:text="Submit Post"
                     android:textStyle="bold" />
 
-            <Button
-                    android:id="@+id/forum_check_last_post_button"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Read Latest Post"
-                    android:textStyle="bold" />
 
         </LinearLayout>
 </LinearLayout>

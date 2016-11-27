@@ -17,10 +17,13 @@
             android:id="@+id/postcv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card:cardCornerRadius="10dp"
-            card:cardElevation="5dp"
-
-            card:cardMaxElevation="10dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            card:cardCornerRadius="5dp"
+            card:elevation="1dp"
+            
             card:cardPreventCornerOverlap="true"
             card:cardUseCompatPadding="true">
 

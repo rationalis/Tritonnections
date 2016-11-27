@@ -5,6 +5,7 @@
 
     <data>
         <variable name="course" type="com.ucsdcse110.tritonnections.CourseObj"/>
+        <variable name="handlers" type="com.ucsdcse110.tritonnections.OnClickHandler"/>
     </data>
 
     <LinearLayout
@@ -17,10 +18,14 @@
             android:id="@+id/cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            card:cardCornerRadius="10dp"
-            card:cardElevation="5dp"
+            android:onClick="@{handlers.onClickLecture}"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="2dp"
+            card:cardCornerRadius="5dp"
+            card:elevation="1dp"
 
-            card:cardMaxElevation="10dp"
             card:cardPreventCornerOverlap="true"
             card:cardUseCompatPadding="true">
 

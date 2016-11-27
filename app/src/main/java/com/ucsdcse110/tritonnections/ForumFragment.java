@@ -41,9 +41,7 @@ public class ForumFragment extends Fragment {
     private EditText messageTitle;
     private EditText messageBody;
     private Button submitButton;
-    private Button checkLastButton;
 
-    private String lastPost;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -62,45 +60,6 @@ public class ForumFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 submitPost();
-            }
-        });
-
-        checkLastButton = (Button) view.findViewById(R.id.forum_check_last_post_button);
-        checkLastButton.setText("READ LATEST POSTS");
-        checkLastButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction()
-                        .replace(container.getId(), new PostsRecyclerViewFragment())
-                        .addToBackStack(null)
-                        .commit();
-//                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-//                alertDialog.setTitle("Latest Post Submitted");
-//                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                dialog.dismiss();
-//                            }
-//                        });
-//
-//                mDatabase.child("posts").orderByKey().limitToLast(1).addListenerForSingleValueEvent(
-//                        new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(DataSnapshot dataSnapshot) {
-//                                if (dataSnapshot.getValue() != null) {
-//                                    alertDialog.setMessage(((Map<String, Object>)dataSnapshot.getValue())
-//                                            .values()
-//                                            .toArray(new String[0])[0]);
-//                                } else {
-//                                    alertDialog.setMessage("No posts available");
-//                                }
-//                                alertDialog.show();
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(DatabaseError databaseError) {
-//                                System.out.println("Database error: " + databaseError.toString());
-//                            }
-//                        });
             }
         });
 
@@ -146,10 +105,21 @@ public class ForumFragment extends Fragment {
         writeNewPost(title, body);
         setEditingEnabled(true);
 
-        messageTitle.setText("");
-        messageBody.setText("");
+        backToForum();
     }
 
+    private void showFragment(Fragment f)
+    {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.flContent, f)
+                .addToBackStack(null)
+                .commit();
+    }
+    private void backToForum()
+    {
+        showFragment (new PostsRecyclerViewFragment());
+    }
     private void setEditingEnabled(boolean enabled) {
 //        mTitleField.setEnabled(enabled);
         messageBody.setEnabled(enabled);

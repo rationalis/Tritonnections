@@ -2,8 +2,11 @@ package com.ucsdcse110.tritonnections;
 
 import com.google.firebase.database.ServerValue;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class PostObj {
     public String author;
@@ -25,6 +28,19 @@ public class PostObj {
         this.time = map.get("time");
         this.title = map.get("title").toString();
         this.body = map.get("body").toString();
+    }
+
+    public String getTimeString() {
+        DateFormat fmt = DateFormat.getDateTimeInstance();
+        fmt.setTimeZone(TimeZone.getDefault());
+
+        try {
+            Date date = new Date((Long) time);
+            return fmt.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 
     Map<String, Object> toMap() {

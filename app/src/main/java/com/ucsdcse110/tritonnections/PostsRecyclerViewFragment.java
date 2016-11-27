@@ -59,8 +59,8 @@ public class PostsRecyclerViewFragment extends Fragment {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                         PostObj post = dataSnapshot.getValue(PostObj.class);
-                        postList.add(post);
-                        adapter.notifyItemInserted(postList.size()-1);
+                        postList.add(0, post);
+                        adapter.notifyItemInserted(0);
                     }
 
                     @Override

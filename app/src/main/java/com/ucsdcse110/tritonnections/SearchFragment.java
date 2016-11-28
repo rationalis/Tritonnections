@@ -15,7 +15,7 @@ import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends OptionsMenuFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         System.out.println("reached onCreateView");
@@ -46,6 +46,10 @@ public class SearchFragment extends Fragment {
                 }
             }
         });
+
+        isSearchable = false;
+        isSelectable = true;
+        setHasOptionsMenu(true);
 
         return view;
     }

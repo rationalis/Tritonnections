@@ -31,8 +31,6 @@ import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceTy
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private boolean isSearchable;
-    private boolean isSelectable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,6 @@ public class NavigationDrawer extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setToolbar(false, false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -63,64 +60,6 @@ public class NavigationDrawer extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation_drawer, menu);
-        setupUI(findViewById(R.id.root_layout));
-        MenuItem menuItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            public boolean onQueryTextSubmit(String query) {
-                Log.i("tag",query);
-                Toast.makeText(getApplicationContext(), "begin search", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu1) {
-            return true;
-        } else if (id == R.id.menu2) {
-            return true;
-        } else if (id == R.id.menu3) {
-            return true;
-        } else if (id == R.id.menu4) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.search).setVisible(isSearchable);
-        menu.findItem(R.id.menu1).setVisible(isSelectable);
-        menu.findItem(R.id.menu2).setVisible(isSelectable);
-        menu.findItem(R.id.menu3).setVisible(isSelectable);
-        menu.findItem(R.id.menu4).setVisible(isSelectable);
-        if (isSearchable) {
-            menu.findItem(R.id.menu1).setTitle("CSE 110");
-            menu.findItem(R.id.menu2).setTitle("CSE 120");
-            menu.findItem(R.id.menu3).setTitle("CSE 101");
-            menu.findItem(R.id.menu4).setTitle("CSE 105");
-        }
-        return super.onPrepareOptionsMenu(menu);
     }
 
     public static void hideSoftKeyboard(Activity activity)
@@ -149,12 +88,6 @@ public class NavigationDrawer extends AppCompatActivity
         }
     }
 
-    private void setToolbar (boolean isSearchable, boolean isSelectable)
-    {
-        this.isSearchable = isSearchable;
-        this.isSelectable = isSelectable;
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -163,7 +96,6 @@ public class NavigationDrawer extends AppCompatActivity
         if (id == R.id.nav_schedule) {
 //            FragmentManager fragmentManager = getSupportFragmentManager();
 //            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-            setToolbar(false, true);
             if (!TritonlinkLoginManager.isLoggedIn()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
                 alertDialog.setTitle("Login Required");
@@ -181,16 +113,12 @@ public class NavigationDrawer extends AppCompatActivity
                 showFragment(new CoursesRecyclerViewFragment(), args);
             }
         } else if (id == R.id.nav_search) {
-            setToolbar(false, false);
             showFragment(new SearchFragment());
         } else if (id == R.id.nav_postboard) {
-            setToolbar(true, true);
             showFragment (new PostsRecyclerViewFragment());
         } else if (id == R.id.nav_login) {
-            setToolbar(false, false);
             showFragment(new LoginFragment());
         } else if (id == R.id.nav_logout) {
-            setToolbar(false, false);
             TritonlinkLoginManager.logout();
             AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
             alertDialog.setTitle("Logged Out");

@@ -26,7 +26,7 @@ import java.util.Map;
 
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;
 
-public class PostsRecyclerViewFragment extends Fragment {
+public class PostsRecyclerViewFragment extends OptionsMenuFragment {
     private List<PostObj> postList = new ArrayList<>();
     private RecyclerView rv;
     private RecyclerView.Adapter adapter;
@@ -52,12 +52,16 @@ public class PostsRecyclerViewFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         initializeAdapter();
         initializeData();
+
+        isSearchable = true;
+        isSelectable = true;
+        setHasOptionsMenu(true);
         return view;
     }
 
     private void initializeData(){
         System.out.println("Started initializing data for RV");
-        mDatabase.child("postobjs").orderByKey().limitToLast(50).addChildEventListener(
+        mDatabase.child("postobjs").orderByKey().limitToLast(1000).addChildEventListener(
                 new ChildEventListener() {
 //                    @Override
 //                    public void onDataChange(DataSnapshot dataSnapshot) {

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceTy
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private boolean isSearchable;
+    private boolean isSelectable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +43,7 @@ public class NavigationDrawer extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        setToolbar(false, false);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -104,6 +107,22 @@ public class NavigationDrawer extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.search).setVisible(isSearchable);
+        menu.findItem(R.id.menu1).setVisible(isSelectable);
+        menu.findItem(R.id.menu2).setVisible(isSelectable);
+        menu.findItem(R.id.menu3).setVisible(isSelectable);
+        menu.findItem(R.id.menu4).setVisible(isSelectable);
+        if (isSearchable) {
+            menu.findItem(R.id.menu1).setTitle("CSE 110");
+            menu.findItem(R.id.menu2).setTitle("CSE 120");
+            menu.findItem(R.id.menu3).setTitle("CSE 101");
+            menu.findItem(R.id.menu4).setTitle("CSE 105");
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     public static void hideSoftKeyboard(Activity activity)
     {
         InputMethodManager inputMethodManager = (InputMethodManager)activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -130,6 +149,12 @@ public class NavigationDrawer extends AppCompatActivity
         }
     }
 
+    private void setToolbar (boolean isSearchable, boolean isSelectable)
+    {
+        this.isSearchable = isSearchable;
+        this.isSelectable = isSelectable;
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -138,6 +163,7 @@ public class NavigationDrawer extends AppCompatActivity
         if (id == R.id.nav_schedule) {
 //            FragmentManager fragmentManager = getSupportFragmentManager();
 //            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            setToolbar(false, true);
             if (!TritonlinkLoginManager.isLoggedIn()) {
                 AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
                 alertDialog.setTitle("Login Required");
@@ -155,12 +181,16 @@ public class NavigationDrawer extends AppCompatActivity
                 showFragment(new CoursesRecyclerViewFragment(), args);
             }
         } else if (id == R.id.nav_search) {
+            setToolbar(false, false);
             showFragment(new SearchFragment());
         } else if (id == R.id.nav_postboard) {
+            setToolbar(true, true);
             showFragment (new PostsRecyclerViewFragment());
         } else if (id == R.id.nav_login) {
+            setToolbar(false, false);
             showFragment(new LoginFragment());
         } else if (id == R.id.nav_logout) {
+            setToolbar(false, false);
             TritonlinkLoginManager.logout();
             AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
             alertDialog.setTitle("Logged Out");
@@ -187,6 +217,7 @@ public class NavigationDrawer extends AppCompatActivity
                 .replace(R.id.flContent, f)
                 .addToBackStack(null)
                 .commit();
+        invalidateOptionsMenu();
     }
 
     private void showFragment(Fragment f, Bundle b) {

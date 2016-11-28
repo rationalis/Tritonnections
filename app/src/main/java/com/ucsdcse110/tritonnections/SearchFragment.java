@@ -26,6 +26,28 @@ public class SearchFragment extends OptionsMenuFragment {
     private Map<String, String> terms;
     private String quarterCode;
 
+    private void search(String query, ViewGroup container) {
+        System.out.println(query+":"+quarterCode);
+        try {
+            CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
+            Bundle args = new Bundle();
+            args.putString("query",query);
+            args.putString("quarter",quarterCode);
+            args.putSerializable("course source", SCHEDULE_OF_CLASSES);
+            rvf.setArguments(args);
+
+            getFragmentManager().beginTransaction()
+                    .replace(container.getId(), rvf)
+                    .addToBackStack(null)
+                    .commit();
+
+            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         System.out.println("reached onCreateView");
@@ -35,26 +57,8 @@ public class SearchFragment extends OptionsMenuFragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 EditText editText = (EditText) getActivity().findViewById(R.id.edit_message);
-
                 String query = editText.getText().toString();
-                try {
-                    CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
-                    Bundle args = new Bundle();
-                    args.putString("query",query);
-                    args.putString("quarter",quarterCode);
-                    args.putSerializable("course source", SCHEDULE_OF_CLASSES);
-                    rvf.setArguments(args);
-
-                    getFragmentManager().beginTransaction()
-                            .replace(container.getId(), rvf)
-                            .addToBackStack(null)
-                            .commit();
-
-                    final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                search(query, container);
             }
         });
 
@@ -68,6 +72,7 @@ public class SearchFragment extends OptionsMenuFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (terms == null) {
+            //System.out.println("terms is null :(");
             return super.onOptionsItemSelected(item);
         }
 
@@ -82,22 +87,13 @@ public class SearchFragment extends OptionsMenuFragment {
                 int jj = 0;
                 for (String key : terms.keySet()) {
                     if (ii == jj) {
+                        System.out.println(terms.get(key));
                         quarterCode = terms.get(key);
                         return super.onOptionsItemSelected(item);
                     }
+                    jj++;
                 }
             }
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.menu1) {
-            return true;
-        } else if (id == R.id.menu2) {
-            return true;
-        } else if (id == R.id.menu3) {
-            return true;
-        } else if (id == R.id.menu4) {
-            return true;
         }
 
         return super.onOptionsItemSelected(item);

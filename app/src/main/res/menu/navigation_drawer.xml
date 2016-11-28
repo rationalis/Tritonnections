@@ -1,22 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings1"
+        android:id="@+id/quarter2016Fall"
         android:orderInCategory="100"
         android:title="2016Fall"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_settings2"
+        android:id="@+id/quarter2016Spring"
         android:orderInCategory="100"
         android:title="2016Spring"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_settings3"
+        android:id="@+id/quarter2015Fall"
         android:orderInCategory="100"
         android:title="2015Fall"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_settings4"
+        android:id="@+id/quarter2015Spring"
         android:orderInCategory="100"
         android:title="2015Spring"
         app:showAsAction="never" />

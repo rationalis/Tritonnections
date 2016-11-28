@@ -81,11 +81,16 @@ public abstract class OptionsMenuFragment extends Fragment {
             searchView.setOnQueryTextListener(getSearchListener());
         }
 
+
+        int[] ids = new int[]{
+                R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6,
+                R.id.menu7, R.id.menu8};
         if (isSelectable) {
-            int[] ids = new int[]{
-                    R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6,
-                    R.id.menu7, R.id.menu8};
             populateDropdown(menu, ids);
+        } else {
+            for (int id : ids) {
+                menu.findItem(id).setVisible(false);
+            }
         }
         /**
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

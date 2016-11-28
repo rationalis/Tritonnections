@@ -56,7 +56,7 @@ public class PostsRecyclerViewFragment extends OptionsMenuFragment {
         initializeData();
 
         isSearchable = true;
-        isSelectable = true;
+        isSelectable = false;
         setHasOptionsMenu(true);
         return view;
     }

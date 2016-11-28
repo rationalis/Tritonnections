@@ -23,6 +23,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
+            card:cardBackgroundColor="@{course.toColor()}"
             card:cardCornerRadius="5dp"
             card:elevation="2dp"
 

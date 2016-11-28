@@ -44,4 +44,8 @@ public class PostObjRvAdapter extends RecyclerView.Adapter<PostObjRvAdapter.Bind
     public int getItemCount() {
         return posts.size();
     }
+
+    public void setData(List<PostObj> list) {
+        posts = list;
+    }
 }

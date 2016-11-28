@@ -75,8 +75,19 @@ public abstract class OptionsMenuFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.search).setVisible(isSearchable);
-        MenuItem menuItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        if (isSearchable) {
+            MenuItem menuItem = menu.findItem(R.id.search);
+            SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+            searchView.setOnQueryTextListener(getSearchListener());
+        }
+
+        if (isSelectable) {
+            int[] ids = new int[]{
+                    R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6,
+                    R.id.menu7, R.id.menu8};
+            populateDropdown(ids);
+        }
+        /**
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             public boolean onQueryTextSubmit(String query) {
@@ -99,8 +110,10 @@ public abstract class OptionsMenuFragment extends Fragment {
             menu.findItem(R.id.menu3).setTitle("CSE 101");
             menu.findItem(R.id.menu4).setTitle("CSE 105");
         }
+         **/
         super.onPrepareOptionsMenu(menu);
     }
 
-    //public abstract SearchView.OnQueryTextListener getSearchListener();
+    public abstract SearchView.OnQueryTextListener getSearchListener();
+    public abstract void populateDropdown(int[] ids);
 }

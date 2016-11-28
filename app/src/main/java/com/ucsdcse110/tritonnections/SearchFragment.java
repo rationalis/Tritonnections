@@ -3,6 +3,7 @@ package com.ucsdcse110.tritonnections;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,5 +55,10 @@ public class SearchFragment extends OptionsMenuFragment {
         return view;
     }
 
+    public SearchView.OnQueryTextListener getSearchListener() {
+        return null;
+    }
 
+    public void populateDropdown(int[] ids) {
+    }
 }

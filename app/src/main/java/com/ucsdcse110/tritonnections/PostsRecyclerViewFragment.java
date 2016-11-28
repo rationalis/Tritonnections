@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceTy
 public class PostsRecyclerViewFragment extends OptionsMenuFragment {
     private List<PostObj> postList = new ArrayList<>();
     private RecyclerView rv;
-    private RecyclerView.Adapter adapter;
+    private PostObjRvAdapter adapter;
     private DatabaseReference mDatabase;
 
     @Override
@@ -57,6 +58,33 @@ public class PostsRecyclerViewFragment extends OptionsMenuFragment {
         isSelectable = true;
         setHasOptionsMenu(true);
         return view;
+    }
+
+    public SearchView.OnQueryTextListener getSearchListener() {
+        return new SearchView.OnQueryTextListener() {
+            public boolean onQueryTextSubmit(String query) {
+                return true;
+            }
+            public boolean onQueryTextChange(String newText) {
+                if (newText.equals("")) {
+                    adapter.setData(postList);
+                    adapter.notifyDataSetChanged();
+                    return true;
+                }
+
+                List<PostObj> list = new ArrayList<>();
+                for (PostObj o : postList) {
+                    if (o.title.contains(newText)) {
+                        list.add(o);
+                    }
+                }
+                adapter.setData(list);
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        };
+    }
+    public void populateDropdown(int[] ids) {
     }
 
     private void initializeData(){

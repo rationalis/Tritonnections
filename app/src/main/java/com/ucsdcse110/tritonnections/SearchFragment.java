@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +24,7 @@ import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceTy
 
 public class SearchFragment extends OptionsMenuFragment {
     private Map<String, String> terms;
+    private String quarterCode;
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class SearchFragment extends OptionsMenuFragment {
                     CoursesRecyclerViewFragment rvf = new CoursesRecyclerViewFragment();
                     Bundle args = new Bundle();
                     args.putString("query",query);
+                    args.putString("quarter",quarterCode);
                     args.putSerializable("course source", SCHEDULE_OF_CLASSES);
                     rvf.setArguments(args);
 
@@ -60,6 +63,44 @@ public class SearchFragment extends OptionsMenuFragment {
         setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (terms == null) {
+            return super.onOptionsItemSelected(item);
+        }
+
+        int id = item.getItemId();
+
+        int[] ids = new int[]{
+                R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6,
+                R.id.menu7, R.id.menu8};
+
+        for (int ii = 0; ii < ids.length; ii++) {
+            if (ids[ii] == id) {
+                int jj = 0;
+                for (String key : terms.keySet()) {
+                    if (ii == jj) {
+                        quarterCode = terms.get(key);
+                        return super.onOptionsItemSelected(item);
+                    }
+                }
+            }
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.menu1) {
+            return true;
+        } else if (id == R.id.menu2) {
+            return true;
+        } else if (id == R.id.menu3) {
+            return true;
+        } else if (id == R.id.menu4) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public SearchView.OnQueryTextListener getSearchListener() {

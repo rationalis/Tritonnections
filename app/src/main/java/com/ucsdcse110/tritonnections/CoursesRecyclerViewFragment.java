@@ -101,7 +101,7 @@ public class CoursesRecyclerViewFragment extends Fragment {
                 .setCourseList(courseList)
                 .setAdapter(adapter)
                 .createLoadCoursesTask();
-        loadCoursesTask.execute(getArguments().getString("query"));
+        loadCoursesTask.execute(getArguments().getString("query"), getArguments().getString("quarter"));
         System.out.println("Finished initializing data for RV");
     }
 

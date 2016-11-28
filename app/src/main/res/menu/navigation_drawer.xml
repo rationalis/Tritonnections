@@ -9,21 +9,21 @@
     <item
         android:id="@+id/quarter2016Fall"
         android:orderInCategory="100"
-        android:title="2016Fall"
+        android:title="Fall 2016"
         app:showAsAction="never" />
     <item
         android:id="@+id/quarter2016Spring"
         android:orderInCategory="100"
-        android:title="2016Spring"
+        android:title="Spring 2016"
         app:showAsAction="never" />
     <item
         android:id="@+id/quarter2015Fall"
         android:orderInCategory="100"
-        android:title="2015Fall"
+        android:title="Fall 2016"
         app:showAsAction="never" />
     <item
         android:id="@+id/quarter2015Spring"
         android:orderInCategory="100"
-        android:title="2015Spring"
+        android:title="Spring 2015"
         app:showAsAction="never" />
 </menu>

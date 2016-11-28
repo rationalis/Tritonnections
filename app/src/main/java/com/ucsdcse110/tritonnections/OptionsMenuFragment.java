@@ -85,7 +85,7 @@ public abstract class OptionsMenuFragment extends Fragment {
             int[] ids = new int[]{
                     R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6,
                     R.id.menu7, R.id.menu8};
-            populateDropdown(ids);
+            populateDropdown(menu, ids);
         }
         /**
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -115,5 +115,5 @@ public abstract class OptionsMenuFragment extends Fragment {
     }
 
     public abstract SearchView.OnQueryTextListener getSearchListener();
-    public abstract void populateDropdown(int[] ids);
+    public abstract void populateDropdown(Menu m, int[] ids);
 }

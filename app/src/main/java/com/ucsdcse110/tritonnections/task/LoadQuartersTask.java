@@ -6,10 +6,12 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-public class LoadQuartersTask extends HTTPRequestTask<String, HashMap<String,String>> {
+public abstract class LoadQuartersTask extends HTTPRequestTask<String, Map<String,String>> {
     @Override
-    protected HashMap<String, String> doInBackground(String... params) {
+    protected Map<String, String> doInBackground(String... params) {
         String url = "https://act.ucsd.edu/scheduleOfClasses/scheduleOfClassesStudent.htm";
         String html = request(url,null,"GET");
 
@@ -17,15 +19,16 @@ public class LoadQuartersTask extends HTTPRequestTask<String, HashMap<String,Str
         Element quarterList = doc.select("select#selectedTerm").get(0);
         Elements quarters = quarterList.select("option");
 
-        HashMap<String,String> terms = new HashMap<>();
+        Map<String,String> terms = new LinkedHashMap<>();
 
         for (Element quarter : quarters) {
             terms.put(quarter.text(), quarter.val());
             System.out.println(quarter.val());
         }
 
-
-
-        return null;
+        return terms;
     }
+
+    @Override
+    public abstract void onPostExecute(Map<String, String> map);
 }

@@ -48,7 +48,7 @@ public class SearchFragment extends OptionsMenuFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         System.out.println("reached onCreateView");
-        final View view = inflater.inflate(R.layout.activity_search, container, false);
+        final View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Button button = (Button) view.findViewById(R.id.search_button1);
         button.setOnClickListener(new View.OnClickListener() {

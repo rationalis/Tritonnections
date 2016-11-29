@@ -41,7 +41,7 @@ public abstract class OptionsMenuFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        inflater.inflate(R.menu.navigation_drawer, menu);
+        inflater.inflate(R.menu.navigation_drawer_options_menu, menu);
         //setupUI(getView().findViewById(R.id.root_layout));
     }
 

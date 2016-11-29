@@ -43,7 +43,7 @@ public class PostObj {
         }
     }
 
-    Map<String, Object> toMap() {
+    public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("author", author);
         result.put("time", time);

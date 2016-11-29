@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ucsdcse110.tritonnections.PostObj;
+import com.ucsdcse110.tritonnections.R;
+import com.ucsdcse110.tritonnections.TritonlinkLoginManager;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.ucsdcse110.tritonnections.PostObj;
+import com.ucsdcse110.tritonnections.PostObjRvAdapter;
+import com.ucsdcse110.tritonnections.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -12,11 +12,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
+
+import com.ucsdcse110.tritonnections.fragment.CoursesRecyclerViewFragment;
+import com.ucsdcse110.tritonnections.fragment.LoginFragment;
+import com.ucsdcse110.tritonnections.fragment.PostsRecyclerViewFragment;
+import com.ucsdcse110.tritonnections.fragment.SearchFragment;
 
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.ENROLLED_CLASSES;
 

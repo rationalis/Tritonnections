@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.ucsdcse110.tritonnections.R;
+import com.ucsdcse110.tritonnections.TritonlinkLoginManager;
 import com.ucsdcse110.tritonnections.task.HTTPRequestTask;
 import com.ucsdcse110.tritonnections.task.TritonlinkLoginTask;
 

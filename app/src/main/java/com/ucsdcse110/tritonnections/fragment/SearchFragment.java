@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.ucsdcse110.tritonnections.R;
 import com.ucsdcse110.tritonnections.task.LoadQuartersTask;
 
 import java.util.Map;

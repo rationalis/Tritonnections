@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.ucsdcse110.tritonnections.R;
 
 public abstract class OptionsMenuFragment extends Fragment {
     protected boolean isSearchable;

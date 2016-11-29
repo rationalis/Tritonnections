@@ -1,4 +1,4 @@
-package com.ucsdcse110.tritonnections;
+package com.ucsdcse110.tritonnections.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ucsdcse110.tritonnections.CourseObj;
+import com.ucsdcse110.tritonnections.CourseObjRvAdapter;
+import com.ucsdcse110.tritonnections.CourseOnClickHandler;
+import com.ucsdcse110.tritonnections.R;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTask;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
 import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType;

@@ -21,7 +21,7 @@ import com.ucsdcse110.tritonnections.fragment.SearchFragment;
 
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.ENROLLED_CLASSES;
 
-public class NavigationDrawer extends AppCompatActivity
+public class NavigationDrawerMainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -67,7 +67,7 @@ public class NavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
         if (id == R.id.nav_schedule) {
             if (!TritonlinkLoginManager.isLoggedIn()) {
-                AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
+                AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawerMainActivity.this).create();
                 alertDialog.setTitle("Login Required");
                 alertDialog.setMessage("Please login first.");
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -90,7 +90,7 @@ public class NavigationDrawer extends AppCompatActivity
             showFragment(new LoginFragment());
         } else if (id == R.id.nav_logout) {
             TritonlinkLoginManager.logout();
-            AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawer.this).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(NavigationDrawerMainActivity.this).create();
             alertDialog.setTitle("Logged Out");
             alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                     new DialogInterface.OnClickListener() {

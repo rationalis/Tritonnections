@@ -2,7 +2,6 @@ package com.ucsdcse110.tritonnections;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,10 +12,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
 import com.ucsdcse110.tritonnections.task.LoadQuartersTask;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;

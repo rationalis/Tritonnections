@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,11 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
-
-/**
- * Created by Jimmy on 11/28/2016.
- */
 
 public abstract class OptionsMenuFragment extends Fragment {
     protected boolean isSearchable;
@@ -92,30 +86,7 @@ public abstract class OptionsMenuFragment extends Fragment {
                 menu.findItem(id).setVisible(false);
             }
         }
-        /**
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
-            public boolean onQueryTextSubmit(String query) {
-                Log.i("tag",query);
-                Toast.makeText(getContext(), "begin search", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            public boolean onQueryTextChange(String newText) {
-                return true;
-            }
-        });
-        int[] ids = new int[]{R.id.menu1, R.id.menu2, R.id.menu3, R.id.menu4, R.id.menu5, R.id.menu6, R.id.menu7, R.id.menu8};
-        menu.findItem(R.id.menu1).setVisible(isSelectable);
-        menu.findItem(R.id.menu2).setVisible(isSelectable);
-        menu.findItem(R.id.menu3).setVisible(isSelectable);
-        menu.findItem(R.id.menu4).setVisible(isSelectable);
-        if (isSearchable) {
-            menu.findItem(R.id.menu1).setTitle("CSE 110");
-            menu.findItem(R.id.menu2).setTitle("CSE 120");
-            menu.findItem(R.id.menu3).setTitle("CSE 101");
-            menu.findItem(R.id.menu4).setTitle("CSE 105");
-        }
-         **/
         super.onPrepareOptionsMenu(menu);
     }
 

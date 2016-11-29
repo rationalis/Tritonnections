@@ -26,7 +26,6 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
 
     @Override
     protected Void doInBackground(String... params) {
-//        String url = "https://act.ucsd.edu/studentEnrolledClasses/print?jlinkevent=Default&termCode=FA16";
         String url = "https://act.ucsd.edu/studentEnrolledClasses/enrolledclasses";
         HashMap<String, String> requestProperties = new HashMap<String, String>();
         requestProperties.put("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36");
@@ -37,8 +36,6 @@ public class LoadEnrolledCoursesTask extends LoadCoursesTask {
 
         System.out.println("# of headers: "+courses.size());
 
-        // TODO: Properly handle missing fields
-        // TODO: Treat courses as the primary object, with sections indicated correctly.
         for (Element course : courses) {
             Elements header = course.select("td");
             String department = header.eq(1).text();

@@ -2,7 +2,7 @@ package com.ucsdcse110.tritonnections;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.app.AlertDialog; //was import android.support.v7.app.AlertDialog;
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,28 +10,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v4.app.Fragment;
 
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
-//import android.util.Log;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: Complete Post objects with title, user, etc.
-// TODO: Use FirebaseRecyclerAdapter and generalize RecyclerViewFragment
-// TODO: Authentication based on PID
-
 public class ForumFragment extends Fragment {
 
-    private static final String TAG = "NewPostActivity";
     private static final String REQUIRED = "Required";
 
     // [START declare_database_ref]
@@ -121,7 +110,7 @@ public class ForumFragment extends Fragment {
         showFragment (new PostsRecyclerViewFragment());
     }
     private void setEditingEnabled(boolean enabled) {
-//        mTitleField.setEnabled(enabled);
+        messageTitle.setEnabled(enabled);
         messageBody.setEnabled(enabled);
         if (enabled) {
             submitButton.setVisibility(View.VISIBLE);
@@ -130,21 +119,14 @@ public class ForumFragment extends Fragment {
         }
     }
 
-    // [START write_fan_out]
-//    private void writeNewPost(String userId, String username, String title, String body) {
     private void writeNewPost(String title, String body) {
-        // Create new post at /user-posts/$userid/$postid and at
-        // /posts/$postid simultaneously
         String key = mDatabase.child("posts").push().getKey();
         PostObj post = new PostObj(TritonlinkLoginManager.getName(), title, body);
         Map<String, Object> postValues = post.toMap();
 
         Map<String, Object> childUpdates = new HashMap<>();
-//        childUpdates.put("/posts/"+key, body);
         childUpdates.put("/postobjs/" + key, postValues);
-//        childUpdates.put("/user-posts/" + userId + "/" + key, postValues);
 
         mDatabase.updateChildren(childUpdates);
     }
-    // [END write_fan_out]
 }

@@ -1,7 +1,5 @@
 package com.ucsdcse110.tritonnections;
 
-import android.graphics.Color;
-
 public class CourseObj
 {
     public enum MeetingType {

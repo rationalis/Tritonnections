@@ -2,8 +2,6 @@ package com.ucsdcse110.tritonnections;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -17,16 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.ucsdcse110.tritonnections.task.LoadCoursesTask;
-import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder;
-import com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static com.ucsdcse110.tritonnections.task.LoadCoursesTaskBuilder.SourceType.SCHEDULE_OF_CLASSES;
 
 public class PostsRecyclerViewFragment extends OptionsMenuFragment {
     private List<PostObj> postList = new ArrayList<>();
@@ -92,13 +83,6 @@ public class PostsRecyclerViewFragment extends OptionsMenuFragment {
         System.out.println("Started initializing data for RV");
         mDatabase.child("postobjs").orderByKey().limitToLast(1000).addChildEventListener(
                 new ChildEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        PostObj post = dataSnapshot.getValue(PostObj.class);
-//                        postList.add(post);
-//                        adapter.notifyItemInserted(postList.size()-1);
-//                    }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                         System.out.println("Database error: " + databaseError.toString());

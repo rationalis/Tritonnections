@@ -23,7 +23,6 @@ public class LoadScheduleCardsTask extends LoadCoursesTask {
     protected Void doInBackground(String... params) {
         String quarterCode = params.length > 1 && params[1] != null ? params[1] : "FA16";
 
-        // TODO: Use Builder pattern for search options
         String urlParameters =
                 "selectedTerm="+quarterCode+"&xsoc_term=&" +
                         "loggedIn=false&" +

@@ -3,14 +3,11 @@ package com.ucsdcse110.tritonnections;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,8 +27,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import static com.ucsdcse110.tritonnections.NavigationDrawer.hideSoftKeyboard;
-
 /**
  * A login screen that offers login via email/password.
  */
@@ -40,7 +34,7 @@ public class LoginFragment extends Fragment {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private LoginTestTask mAuthTask = null;
+    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mPidView;
@@ -127,9 +121,7 @@ public class LoginFragment extends Fragment {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            //mAuthTask = new LoginTestTask(pid, password);
-            //mAuthTask.execute();
-            new LoginTestTask(TritonlinkLoginManager.login(pid, password)).execute();
+            new UserLoginTask(TritonlinkLoginManager.login(pid, password)).execute();
         }
     }
 
@@ -173,10 +165,10 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    public class LoginTestTask extends HTTPRequestTask<String, String> {
+    public class UserLoginTask extends HTTPRequestTask<String, String> {
         private TritonlinkLoginTask task;
 
-        public LoginTestTask(TritonlinkLoginTask task) {
+        public UserLoginTask(TritonlinkLoginTask task) {
             this.task = task;
         }
 

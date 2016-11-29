@@ -10,11 +10,7 @@ import org.jsoup.nodes.Element;
 
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
-// TODO: Handle edge cases
-// TODO: Kill/Pause on Fragment change
 
 public class LoadCapeGpaTask extends HTTPRequestTask<CourseObj, Void> {
     private RecyclerView.Adapter adapter;
@@ -27,7 +23,6 @@ public class LoadCapeGpaTask extends HTTPRequestTask<CourseObj, Void> {
 
     @Override
     protected Void doInBackground(CourseObj... courses) {
-        //Map<String, String> gpaMap = new HashMap<String, String>();
         for (CourseObj course : courses) {
             String code = course.department + "+" + course.courseCode;
             String instructor = course.instructor;
@@ -57,7 +52,6 @@ public class LoadCapeGpaTask extends HTTPRequestTask<CourseObj, Void> {
                 Element gpaReceivedElem = tr.select("span[id*=GradeReceived]").first();
                 String gpaReceived = gpaReceivedElem.text();
 
-                // TODO: Maybe handle N/A better?
                 if (!gpaReceived.equals("N/A")) course.setCapeGpa(gpaReceived);
 
                 gpaMap.put(key, course.getCapeGpa());

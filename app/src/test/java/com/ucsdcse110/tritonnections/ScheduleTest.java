@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ScheduleTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void search() throws Exception {
         assertEquals(4, 2 + 2);
     }
 }

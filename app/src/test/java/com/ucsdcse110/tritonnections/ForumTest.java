@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ForumTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void post() throws Exception {
         assertEquals(4, 2 + 2);
     }
 }

@@ -190,8 +190,8 @@ public class LoginFragment extends Fragment {
                 AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                 String title;
                 String message;
-                final boolean successful = exception == null;
-                if (successful) {
+                final boolean successful = task.getException() == null;
+                if (successful && response != null) {
                     Document doc = Jsoup.parse(response);
                     Element nameElement = doc.select("div > h2").first();
                     if (nameElement == null) {
@@ -205,7 +205,7 @@ public class LoginFragment extends Fragment {
                     message = "Hello, " + name + "!";
                 } else {
                     title = "Login Failed";
-                    message = exception.getMessage();
+                    message = task.getException().getMessage();
                 }
 
                 alertDialog.setTitle(title);

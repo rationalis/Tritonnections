@@ -4,6 +4,7 @@ import android.support.test.espresso.contrib.DrawerActions;
 import android.support.test.rule.ActivityTestRule;
 import android.widget.EditText;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -25,14 +26,25 @@ public class ScheduleTest {
     public ActivityTestRule<NavigationDrawerMainActivity> mActivityRule = new ActivityTestRule<>(
             NavigationDrawerMainActivity.class);
 
-    @Test
-    public void testSchedule() {
+    @Before
+    public void setupSchedule() {
         DrawerActions.openDrawer(R.id.drawer_layout);
         onView(withText("Schedule of classes")).perform(click());
-        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        onView(withText("Fall Quarter 2016")).perform(click());
+    }
+
+    @Test
+    public void testSchedule() {
         onView(withId(R.id.edit_message)).perform(typeText("CSE 110"));
         onView(withId(R.id.search_button1)).perform(click());
         onView(withId(R.id.rv)).check(matches(hasDescendant(withText("Software Engineering"))));
+    }
+
+    @Test
+    public void testSchedule2() {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Winter Quarter 2017")).perform(click());
+        onView(withId(R.id.edit_message)).perform(typeText("CSE 110"));
+        onView(withId(R.id.search_button1)).perform(click());
+        onView(withId(R.id.rv)).check(matches(hasDescendant(withText("Gillespie, Gary N"))));
     }
 }

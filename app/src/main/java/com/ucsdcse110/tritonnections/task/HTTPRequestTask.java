@@ -89,4 +89,8 @@ public abstract class HTTPRequestTask<I, O> extends AsyncTask<I, Void, O> {
             return null;
         }
     }
+
+    public Exception getException() {
+        return exception;
+    }
 }

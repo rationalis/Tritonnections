@@ -20,9 +20,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by Amin on 11/30/2016.
- */
 public class ScheduleTest {
     @Rule
     public ActivityTestRule<NavigationDrawerMainActivity> mActivityRule = new ActivityTestRule<>(
